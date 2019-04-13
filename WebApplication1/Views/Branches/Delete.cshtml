@@ -1,0 +1,88 @@
+﻿@model WebApplication1.Models.Branch
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Branch</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WeekDayOpen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WeekDayOpen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WeekDayClose)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WeekDayClose)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FridayOpen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FridayOpen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FridayClose)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FridayClose)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SaturdayOpen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SaturdayOpen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SaturdayClose)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SaturdayClose)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
