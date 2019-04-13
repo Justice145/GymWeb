@@ -12,28 +12,19 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Address)
+            Address
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
+            Phone Number
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.WeekDayOpen)
+            Weekdays Hours
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.WeekDayClose)
+            Friday Hours
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FridayOpen)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FridayClose)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SaturdayOpen)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SaturdayClose)
+            Saturday Hours
         </th>
         <th></th>
     </tr>
@@ -47,22 +38,13 @@
             @Html.DisplayFor(modelItem => item.PhoneNumber)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.WeekDayOpen)
+            @Html.DisplayFor(modelItem => item.WeekDayOpen) - @Html.DisplayFor(modelItem => item.WeekDayClose)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.WeekDayClose)
+            @Html.DisplayFor(modelItem => item.FridayOpen) - @Html.DisplayFor(modelItem => item.FridayClose)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FridayOpen)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FridayClose)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SaturdayOpen)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SaturdayClose)
+            @Html.DisplayFor(modelItem => item.SaturdayOpen) - @Html.DisplayFor(modelItem => item.SaturdayClose)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
