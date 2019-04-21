@@ -8,9 +8,12 @@ namespace WebApplication1.Models
 {
     public class Branch
     {
+        [Key]
         public int Id { get; set; }
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
+
+        public virtual ICollection<Class> Classes { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
         public TimeSpan WeekDayOpen { get; set; }

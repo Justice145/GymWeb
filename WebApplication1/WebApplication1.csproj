@@ -133,7 +133,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BranchesController.cs" />
+    <Compile Include="Controllers\ClassesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -145,8 +147,14 @@
     <Compile Include="Migrations\201904131735029_Add Branches.Designer.cs">
       <DependentUpon>201904131735029_Add Branches.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904211903069_AddUsersClassesAndUpdateBranches.cs" />
+    <Compile Include="Migrations\201904211903069_AddUsersClassesAndUpdateBranches.Designer.cs">
+      <DependentUpon>201904211903069_AddUsersClassesAndUpdateBranches.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Branch.cs" />
+    <Compile Include="Models\Class.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Models\WebApplication1Context.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -193,6 +201,16 @@
     <Content Include="Views\Branches\Details.cshtml" />
     <Content Include="Views\Branches\Edit.cshtml" />
     <Content Include="Views\Branches\Index.cshtml" />
+    <Content Include="Views\Classes\Create.cshtml" />
+    <Content Include="Views\Classes\Delete.cshtml" />
+    <Content Include="Views\Classes\Details.cshtml" />
+    <Content Include="Views\Classes\Edit.cshtml" />
+    <Content Include="Views\Classes\Index.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -216,6 +234,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904131735029_Add Branches.resx">
       <DependentUpon>201904131735029_Add Branches.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904211903069_AddUsersClassesAndUpdateBranches.resx">
+      <DependentUpon>201904211903069_AddUsersClassesAndUpdateBranches.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
