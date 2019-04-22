@@ -155,6 +155,10 @@
     <Compile Include="Migrations\201904221632045_Initial.Designer.cs">
       <DependentUpon>201904221632045_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904221657417_Add_User_Name.cs" />
+    <Compile Include="Migrations\201904221657417_Add_User_Name.Designer.cs">
+      <DependentUpon>201904221657417_Add_User_Name.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Branch.cs" />
     <Compile Include="Models\Class.cs" />
@@ -244,6 +248,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904221632045_Initial.resx">
       <DependentUpon>201904221632045_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904221657417_Add_User_Name.resx">
+      <DependentUpon>201904221657417_Add_User_Name.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
