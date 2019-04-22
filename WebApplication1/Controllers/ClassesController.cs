@@ -17,7 +17,7 @@ namespace WebApplication1.Controllers
         // GET: Classes
         public ActionResult Index()
         {
-            var classes = db.Classes.Include(@ => @.Branch).Include(@ => @.Trainer);
+            var classes = db.Classes.Include(a => a.Branch).Include(a => a.Trainer);
             return View(classes.ToList());
         }
 
