@@ -159,9 +159,14 @@
     <Compile Include="Migrations\201904221657417_Add_User_Name.Designer.cs">
       <DependentUpon>201904221657417_Add_User_Name.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904221723226_add_class_name.cs" />
+    <Compile Include="Migrations\201904221723226_add_class_name.Designer.cs">
+      <DependentUpon>201904221723226_add_class_name.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Branch.cs" />
     <Compile Include="Models\Class.cs" />
+    <Compile Include="Models\RegisterToClassViewModel.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\WebApplication1Context.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -219,6 +224,7 @@
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Users\RegisterToClass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -251,6 +257,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904221657417_Add_User_Name.resx">
       <DependentUpon>201904221657417_Add_User_Name.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904221723226_add_class_name.resx">
+      <DependentUpon>201904221723226_add_class_name.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

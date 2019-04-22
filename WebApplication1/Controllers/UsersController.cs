@@ -73,6 +73,23 @@ namespace WebApplication1.Controllers
             return View(user);
         }
 
+        // GET: Users/RegisterToClass/5
+        public ActionResult RegisterToClass(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            User user = db.Users.Find(id);
+            if (user == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var classes = db.Classes.ToList();
+
+            return View(new RegisterToClassViewModel() { User = user, Classes = classes });
+        }
+
         // POST: Users/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.

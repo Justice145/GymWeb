@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "RegisterToClass";
+}
+
+@model WebApplication1.Models.RegisterToClassViewModel
+
+@{
+    ViewBag.Title = "Register to class";
+}
+
+<h2>Class Registration</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Register @Html.DisplayFor(model => model.User.Name) to a class.</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.User.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Classes, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Pick Class
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        
+                        @foreach (var item in Model.Classes)
+                        {
+                           <a class="dropdown-item" href="#"> @Html.DisplayFor(modelItem => item.Name) on @Html.DisplayFor(modelItem => item.Time) </a> <br/>
+                        }
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+<h2></h2>
+

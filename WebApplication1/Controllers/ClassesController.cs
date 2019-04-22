@@ -49,7 +49,7 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Time,TrainerID,BranchId")] Class @class)
+        public ActionResult Create([Bind(Include = "Id,Name,Time,TrainerID,BranchId")] Class @class)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Time,TrainerID,BranchId")] Class @class)
+        public ActionResult Edit([Bind(Include = "Id,Name,Time,TrainerID,BranchId")] Class @class)
         {
             if (ModelState.IsValid)
             {
