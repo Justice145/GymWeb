@@ -22,20 +22,16 @@
         @Html.HiddenFor(model => model.User.Id)
 
         <div class="form-group">
+            <input type="hidden" id="registerOrCancel" name="registerOrCancel" value="register" />
             @Html.LabelFor(model => model.Classes, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Pick Class
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        
-                        @foreach (var item in Model.Classes)
-                        {
-                           <a class="dropdown-item" href="#"> @Html.DisplayFor(modelItem => item.Name) on @Html.DisplayFor(modelItem => item.Time) </a> <br/>
-                        }
-                </div>
-            </div>
+                <select name="classId" id="classId">
+                    @foreach (var item in Model.Classes)
+                    {
+                        <option value="@Html.DisplayFor(modelItem => item.Id)"> @Html.DisplayFor(modelItem => item.Name) on @Html.DisplayFor(modelItem => item.Time) </option>
+                        <br />
+                    }
+                </select>
             </div>
         </div>
 

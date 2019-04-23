@@ -62,9 +62,24 @@
             @Html.DisplayNameFor(model => model.Classes)
         </dt>
 
+        @foreach (var item in Model.Classes)
+        {
         <dd>
-            @Html.DisplayFor(model => model.Classes)
+            @item.Name on @item.Time
+            @using (Html.BeginForm("RegisterToClass", "Users", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <form action="/Users/RegisterToClass/@Model.Id" method="Post">
+                    <input type="hidden" id="id" name="id" value="@Model.Id" />
+                    <input type="hidden" id="registerOrCancel" name="registerOrCancel" value="cancel" />
+                    <input type="hidden" id="classId" name="classId" value="@item.Id">
+                    <button type="submit" class="btn btn-default">Cancel</button>
+                </form>
+            }
         </dd>
+        }
+
+
 
     </dl>
 </div>

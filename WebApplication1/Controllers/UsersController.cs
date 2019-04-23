@@ -90,6 +90,48 @@ namespace WebApplication1.Controllers
             return View(new RegisterToClassViewModel() { User = user, Classes = classes });
         }
 
+        // POST: Users/RegisterToClass/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RegisterToClass(int? id, string registerOrCancel, int? classId)
+        {
+            
+            if (id == null || classId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var userToRegister = db.Users.Find(id);
+            if (User == null)
+            {
+               return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var requestedClass = db.Classes.Find(classId);
+            if (requestedClass == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            if (registerOrCancel.Equals("cancel"))
+            {
+                userToRegister.Classes.Remove(requestedClass);
+
+            }
+            else if (registerOrCancel.Equals("register"))
+            {
+                userToRegister.Classes.Add(requestedClass);
+            }
+            else
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            db.Entry(userToRegister).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
         // POST: Users/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
