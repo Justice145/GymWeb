@@ -14,7 +14,7 @@ namespace WebApplication1.Models
         public string Name { get; set; }
 
         [DataType(DataType.DateTime), Required]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd on hh:mm}", ApplyFormatInEditMode = true)]
         public DateTime Time { get; set; }
         
         public int TrainerID { get; set; }

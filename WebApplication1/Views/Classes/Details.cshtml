@@ -19,15 +19,15 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Trainer.Username)
+            Trainer Name
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Trainer.Username)
+            @Html.DisplayFor(model => model.Trainer.Name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            Class Name
         </dt>
 
         <dd>
@@ -40,6 +40,18 @@
 
         <dd>
             @Html.DisplayFor(model => model.Time)
+        </dd>
+
+        <dt>
+           Trainees registered to this class:
+        </dt>
+
+        <dd>
+            @foreach (var item in Model.Trainees)
+            {
+                @item.Name
+                <br />
+            }
         </dd>
 
     </dl>

@@ -40,7 +40,7 @@ namespace WebApplication1.Controllers
         public ActionResult Create()
         {
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Address");
-            ViewBag.TrainerID = new SelectList(db.Users, "Id", "Username");
+            ViewBag.TrainerID = new SelectList(db.Users.Where(s => s.UserType == UserType.Trainer), "Id", "Username");
             return View();
         }
 
@@ -59,7 +59,7 @@ namespace WebApplication1.Controllers
             }
 
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Address", @class.BranchId);
-            ViewBag.TrainerID = new SelectList(db.Users, "Id", "Username", @class.TrainerID);
+            ViewBag.TrainerID = new SelectList(db.Users.Where(s => s.UserType == UserType.Trainer), "Id", "Username", @class.TrainerID);
             return View(@class);
         }
 
@@ -94,7 +94,7 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Address", @class.BranchId);
-            ViewBag.TrainerID = new SelectList(db.Users, "Id", "Username", @class.TrainerID);
+            ViewBag.TrainerID = new SelectList(db.Users.Where( s => s.UserType == UserType.Trainer ), "Id", "Username", @class.TrainerID);
             return View(@class);
         }
 
@@ -119,6 +119,13 @@ namespace WebApplication1.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Class @class = db.Classes.Find(id);
+            var userList = @class.Trainees;
+            userList.Add(@class.Trainer);
+
+            foreach (var user in userList)
+            {
+                user.Classes.Remove(@class);
+            }
             db.Classes.Remove(@class);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -115,11 +115,13 @@ namespace WebApplication1.Controllers
             if (registerOrCancel.Equals("cancel"))
             {
                 userToRegister.Classes.Remove(requestedClass);
+                requestedClass.Trainees.Remove(userToRegister);
 
             }
             else if (registerOrCancel.Equals("register"))
             {
                 userToRegister.Classes.Add(requestedClass);
+                requestedClass.Trainees.Add(userToRegister);
             }
             else
             {
