@@ -6,6 +6,12 @@
 
 <h2>Create</h2>
 
+<style>
+    .ui-datepicker-trigger {
+        height: 50px
+    }
+</style>
+
 
 @using (Html.BeginForm())
 {
@@ -24,11 +30,11 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Time, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Time, htmlAttributes: new { @class="date_picker" })
-                @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
-            </div>
+                @Html.LabelFor(model => model.Time, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @class = "form-control", @id = "datetimepicker", @onBlur = "changed(this)" } })
+                    @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
+                </div>
         </div>
 
         <div class="form-group">
@@ -61,12 +67,14 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-
-   <script type="text/javascript">
-  $(function () {
-      $('#date_picker').datetimepicker({
-          dateFormat: "dd/MM/yyyy",
-          timeFormat: "HH:mm"
-      })
-      </script>
+    <link rel="stylesheet" type="text/css" href="/datetimepicker/jquery.datetimepicker.css" />
+    <script src="/datetimepicker/jquery.js"></script>
+    <script src="/datetimepicker/build/jquery.datetimepicker.full.min.js"></script>
+    <script>
+        jQuery('#datetimepicker').datetimepicker({
+            minTime: '08:00',
+            maxTime: '18:00',
+            disabledWeekDays: [5, 6]
+        });
+    </script>
 }
