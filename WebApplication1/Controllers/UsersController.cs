@@ -12,12 +12,12 @@ namespace WebApplication1.Controllers
 {
     public class UsersController : Controller
     {
-        private WebApplication1Context db = new WebApplication1Context();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Users
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            return View(db.Users1.ToList());
         }
 
         // GET: Users/Details/5
@@ -27,7 +27,7 @@ namespace WebApplication1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            User user = db.Users1.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -50,7 +50,7 @@ namespace WebApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Users.Add(user);
+                db.Users1.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -65,73 +65,12 @@ namespace WebApplication1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            User user = db.Users1.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
             }
             return View(user);
-        }
-
-        // GET: Users/RegisterToClass/5
-        public ActionResult RegisterToClass(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var classes = db.Classes.ToList();
-
-            return View(new RegisterToClassViewModel() { User = user, Classes = classes });
-        }
-
-        // POST: Users/RegisterToClass/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult RegisterToClass(int? id, string registerOrCancel, int? classId)
-        {
-            
-            if (id == null || classId == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var userToRegister = db.Users.Find(id);
-            if (User == null)
-            {
-               return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var requestedClass = db.Classes.Find(classId);
-            if (requestedClass == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            if (registerOrCancel.Equals("cancel"))
-            {
-                userToRegister.Classes.Remove(requestedClass);
-                requestedClass.Trainees.Remove(userToRegister);
-
-            }
-            else if (registerOrCancel.Equals("register"))
-            {
-                userToRegister.Classes.Add(requestedClass);
-                requestedClass.Trainees.Add(userToRegister);
-            }
-            else
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            db.Entry(userToRegister).State = EntityState.Modified;
-            db.SaveChanges();
-
-            return RedirectToAction("Index");
         }
 
         // POST: Users/Edit/5
@@ -157,7 +96,7 @@ namespace WebApplication1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            User user = db.Users1.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -170,8 +109,8 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            User user = db.Users.Find(id);
-            db.Users.Remove(user);
+            User user = db.Users1.Find(id);
+            db.Users1.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

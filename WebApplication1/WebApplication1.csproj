@@ -8,7 +8,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D970D9BC-1D50-4499-8FA7-BE2035D01DDD}</ProjectGuid>
+    <ProjectGuid>{3A999B21-6456-4322-9507-A1A17017E976}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -45,12 +45,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -118,6 +112,51 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.2\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.2\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.4.0.0\lib\net451\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.0\lib\net451\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.0\lib\net451\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.4.0.0\lib\net451\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.0.0\lib\net451\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.0.0\lib\net451\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.4.0.0\lib\net451\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.4.0.0\lib\net451\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.0\lib\net451\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
     <Reference Include="System.Diagnostics.DiagnosticSource">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
@@ -131,57 +170,83 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\BranchesController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClassesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904131455404_InitialCreate.cs" />
-    <Compile Include="Migrations\201904131455404_InitialCreate.Designer.cs">
-      <DependentUpon>201904131455404_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201907161610078_InitialCreate.cs" />
+    <Compile Include="Migrations\201907161610078_InitialCreate.Designer.cs">
+      <DependentUpon>201907161610078_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904131735029_Add Branches.cs" />
-    <Compile Include="Migrations\201904131735029_Add Branches.Designer.cs">
-      <DependentUpon>201904131735029_Add Branches.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904211903069_AddUsersClassesAndUpdateBranches.cs" />
-    <Compile Include="Migrations\201904211903069_AddUsersClassesAndUpdateBranches.Designer.cs">
-      <DependentUpon>201904211903069_AddUsersClassesAndUpdateBranches.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904221632045_Initial.cs" />
-    <Compile Include="Migrations\201904221632045_Initial.Designer.cs">
-      <DependentUpon>201904221632045_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904221657417_Add_User_Name.cs" />
-    <Compile Include="Migrations\201904221657417_Add_User_Name.Designer.cs">
-      <DependentUpon>201904221657417_Add_User_Name.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904221723226_add_class_name.cs" />
-    <Compile Include="Migrations\201904221723226_add_class_name.Designer.cs">
-      <DependentUpon>201904221723226_add_class_name.cs</DependentUpon>
+    <Compile Include="Migrations\201907181531080_AddAddressRegistration.cs" />
+    <Compile Include="Migrations\201907181531080_AddAddressRegistration.Designer.cs">
+      <DependentUpon>201907181531080_AddAddressRegistration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Branch.cs" />
     <Compile Include="Models\Class.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RegisterToClassViewModel.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\WebApplication1Context.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="datetimepicker\build\jquery.datetimepicker.full.js" />
+    <Content Include="datetimepicker\build\jquery.datetimepicker.full.min.js" />
+    <Content Include="datetimepicker\build\jquery.datetimepicker.min.css" />
+    <Content Include="datetimepicker\build\jquery.datetimepicker.min.js" />
+    <Content Include="datetimepicker\index.html" />
+    <Content Include="datetimepicker\jquery.datetimepicker.css" />
+    <Content Include="datetimepicker\jquery.datetimepicker.js" />
+    <Content Include="datetimepicker\jquery.js" />
+    <Content Include="datetimepicker\karma.conf.js" />
+    <Content Include="datetimepicker\MIT-LICENSE.txt" />
+    <Content Include="datetimepicker\screen\1.png" />
+    <Content Include="datetimepicker\screen\2.png" />
+    <Content Include="datetimepicker\screen\3.1.png" />
+    <Content Include="datetimepicker\screen\3.png" />
+    <Content Include="datetimepicker\screen\4.png" />
+    <Content Include="datetimepicker\screen\5.png" />
+    <Content Include="datetimepicker\screen\6.png" />
+    <Content Include="datetimepicker\tests\app.css" />
+    <Content Include="datetimepicker\tests\index.html" />
+    <Content Include="datetimepicker\tests\input_in_container_fixed_to_bottom_of_viewport.html" />
+    <Content Include="datetimepicker\tests\input_in_container_fixed_to_top_of_viewport.html" />
+    <Content Include="datetimepicker\tests\tests\bootstrap.js" />
+    <Content Include="datetimepicker\tests\tests\destroy.js" />
+    <Content Include="datetimepicker\tests\tests\events.js" />
+    <Content Include="datetimepicker\tests\tests\init.js" />
+    <Content Include="datetimepicker\tests\tests\methods.js" />
+    <Content Include="datetimepicker\tests\tests\options.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="datetimepicker\.travis.yml" />
+    <Content Include="datetimepicker\bower.json" />
+    <Content Include="datetimepicker\datetimepicker.jquery.json" />
+    <Content Include="datetimepicker\doc.tpl" />
+    <Content Include="datetimepicker\package-lock.json" />
+    <Content Include="datetimepicker\package.json" />
+    <Content Include="datetimepicker\README.md" />
+    <Content Include="Controllers\HomeController.cs.bak" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -193,9 +258,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Videos\trailer_vid.mp4" />
+    <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -209,22 +273,42 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Branches\Create.cshtml" />
     <Content Include="Views\Branches\Delete.cshtml" />
     <Content Include="Views\Branches\Details.cshtml" />
     <Content Include="Views\Branches\Edit.cshtml" />
     <Content Include="Views\Branches\Index.cshtml" />
-    <Content Include="Views\Classes\Create.cshtml" />
-    <Content Include="Views\Classes\Delete.cshtml" />
-    <Content Include="Views\Classes\Details.cshtml" />
-    <Content Include="Views\Classes\Edit.cshtml" />
-    <Content Include="Views\Classes\Index.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
     <Content Include="Views\Users\Delete.cshtml" />
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\RegisterToClass.cshtml" />
+    <Content Include="Views\Classes\Create.cshtml" />
+    <Content Include="Views\Classes\Delete.cshtml" />
+    <Content Include="Views\Classes\Details.cshtml" />
+    <Content Include="Views\Classes\Edit.cshtml" />
+    <Content Include="Views\Classes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -243,23 +327,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201904131455404_InitialCreate.resx">
-      <DependentUpon>201904131455404_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201907161610078_InitialCreate.resx">
+      <DependentUpon>201907161610078_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904131735029_Add Branches.resx">
-      <DependentUpon>201904131735029_Add Branches.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904211903069_AddUsersClassesAndUpdateBranches.resx">
-      <DependentUpon>201904211903069_AddUsersClassesAndUpdateBranches.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904221632045_Initial.resx">
-      <DependentUpon>201904221632045_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904221657417_Add_User_Name.resx">
-      <DependentUpon>201904221657417_Add_User_Name.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904221723226_add_class_name.resx">
-      <DependentUpon>201904221723226_add_class_name.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201907181531080_AddAddressRegistration.resx">
+      <DependentUpon>201907181531080_AddAddressRegistration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -278,9 +350,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>50184</DevelopmentServerPort>
+          <DevelopmentServerPort>60723</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50184/</IISUrl>
+          <IISUrl>http://localhost:60723/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -8,109 +8,118 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
 
-namespace WebApplication1
+namespace WebApplication1.Controllers
 {
-    public class BranchesController : Controller
+    public class ClassesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Branches
+        // GET: Classes
         public ActionResult Index()
         {
-            return View(db.Branches.ToList());
+            var classes = db.Classes.Include(@ => @.Branch).Include(@ => @.Trainer);
+            return View(classes.ToList());
         }
 
-        // GET: Branches/Details/5
+        // GET: Classes/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Branch branch = db.Branches.Find(id);
-            if (branch == null)
+            Class @class = db.Classes.Find(id);
+            if (@class == null)
             {
                 return HttpNotFound();
             }
-            return View(branch);
+            return View(@class);
         }
 
-        // GET: Branches/Create
+        // GET: Classes/Create
         public ActionResult Create()
         {
+            ViewBag.BranchId = new SelectList(db.Branches, "Id", "Address");
+            ViewBag.TrainerID = new SelectList(db.Users, "Id", "Username");
             return View();
         }
 
-        // POST: Branches/Create
+        // POST: Classes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Address,PhoneNumber,WeekDayOpen,WeekDayClose,FridayOpen,FridayClose,SaturdayOpen,SaturdayClose")] Branch branch)
+        public ActionResult Create([Bind(Include = "Id,Name,Time,TrainerID,BranchId")] Class @class)
         {
             if (ModelState.IsValid)
             {
-                db.Branches.Add(branch);
+                db.Classes.Add(@class);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(branch);
+            ViewBag.BranchId = new SelectList(db.Branches, "Id", "Address", @class.BranchId);
+            ViewBag.TrainerID = new SelectList(db.Users, "Id", "Username", @class.TrainerID);
+            return View(@class);
         }
 
-        // GET: Branches/Edit/5
+        // GET: Classes/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Branch branch = db.Branches.Find(id);
-            if (branch == null)
+            Class @class = db.Classes.Find(id);
+            if (@class == null)
             {
                 return HttpNotFound();
             }
-            return View(branch);
+            ViewBag.BranchId = new SelectList(db.Branches, "Id", "Address", @class.BranchId);
+            ViewBag.TrainerID = new SelectList(db.Users, "Id", "Username", @class.TrainerID);
+            return View(@class);
         }
 
-        // POST: Branches/Edit/5
+        // POST: Classes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Address,PhoneNumber,WeekDayOpen,WeekDayClose,FridayOpen,FridayClose,SaturdayOpen,SaturdayClose")] Branch branch)
+        public ActionResult Edit([Bind(Include = "Id,Name,Time,TrainerID,BranchId")] Class @class)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(branch).State = EntityState.Modified;
+                db.Entry(@class).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(branch);
+            ViewBag.BranchId = new SelectList(db.Branches, "Id", "Address", @class.BranchId);
+            ViewBag.TrainerID = new SelectList(db.Users, "Id", "Username", @class.TrainerID);
+            return View(@class);
         }
 
-        // GET: Branches/Delete/5
+        // GET: Classes/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Branch branch = db.Branches.Find(id);
-            if (branch == null)
+            Class @class = db.Classes.Find(id);
+            if (@class == null)
             {
                 return HttpNotFound();
             }
-            return View(branch);
+            return View(@class);
         }
 
-        // POST: Branches/Delete/5
+        // POST: Classes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Branch branch = db.Branches.Find(id);
-            db.Branches.Remove(branch);
+            Class @class = db.Classes.Find(id);
+            db.Classes.Remove(@class);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

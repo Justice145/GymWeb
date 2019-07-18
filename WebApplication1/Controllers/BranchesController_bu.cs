@@ -8,11 +8,11 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
 
-namespace WebApplication1
+namespace WebApplication1.Controllers
 {
     public class BranchesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private WebApplication1Context db = new WebApplication1Context();
 
         // GET: Branches
         public ActionResult Index()
