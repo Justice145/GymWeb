@@ -27,5 +27,8 @@ namespace WebApplication1.Models
         public TimeSpan SaturdayOpen { get; set; }
         [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
         public TimeSpan SaturdayClose { get; set; }
+
+        public double Lat { get; set; }
+        public double Lng { get; set; }
     }
 }

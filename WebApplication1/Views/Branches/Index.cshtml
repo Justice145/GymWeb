@@ -29,29 +29,74 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.WeekDayOpen) - @Html.DisplayFor(modelItem => item.WeekDayClose)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FridayOpen) - @Html.DisplayFor(modelItem => item.FridayClose)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SaturdayOpen) - @Html.DisplayFor(modelItem => item.SaturdayClose)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WeekDayOpen) - @Html.DisplayFor(modelItem => item.WeekDayClose)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FridayOpen) - @Html.DisplayFor(modelItem => item.FridayClose)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SaturdayOpen) - @Html.DisplayFor(modelItem => item.SaturdayClose)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>
+
+
+<style>
+    /* Set the size of the div element that contains the map */
+    #map {
+        height: 400px; /* The height is 400 pixels */
+        width: 100%; /* The width is the width of the web page */
+    }
+</style>
+
+<!--The div element for the map -->
+<div id="map"></div>
+<script type="text/javascript">
+    // Initialize and add the map
+    function initMap() {
+
+            // The location of Uluru
+        var israel = { lat: 31.771959, lng: 35.217018 };
+        // The map, centered at Uluru
+        var map = new google.maps.Map(
+            document.getElementById('map'), { zoom: 4, center: israel });
+        // Location markers
+        @foreach (var item in Model)
+        {
+           <text>
+        var pst = { lat: @(item.Lat), lng: @(item.Lng) };
+        _ _ var marker = new google.maps.Marker({
+        _ _ _ map: map,
+        _ _ _ position: pst
+        });
+            </text>
+        }
+    }
+
+
+</script>
+<!--Load the API from the specified URL
+* The async attribute allows the browser to render the page while the API loads
+* The key parameter will contain your own API key (which is not needed for this tutorial)
+* The callback parameter executes the initMap() function
+-->
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA33m-IYyDg1cWf2adNmA90u0R7cnOeqx0&callback=initMap">
+</script>

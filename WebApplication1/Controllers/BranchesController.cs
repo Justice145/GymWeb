@@ -2,18 +2,22 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
+using GoogleMaps.LocationServices; // IMPORTANT:: Install version 1.2.0.1 of this or it will not work. (-version 1.2.0.1 parameter in package manage console)
+using Geocoding.Microsoft;
 
 namespace WebApplication1.Controllers
 {
     public class BranchesController : Controller
     {
         private WebApplication1Context db = new WebApplication1Context();
-
+        private String m_GeocodingAPIKey = "AIzaSyA33m-IYyDg1cWf2adNmA90u0R7cnOeqx0";
         // GET: Branches
         public ActionResult Index()
         {
@@ -46,7 +50,7 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Address,PhoneNumber,WeekDayOpen,WeekDayClose,FridayOpen,FridayClose,SaturdayOpen,SaturdayClose")] Branch branch)
+        public ActionResult Create([Bind(Include = "Id,Address,PhoneNumber,WeekDayOpen,WeekDayClose,FridayOpen,FridayClose,SaturdayOpen,SaturdayClose,Lat,Long")] Branch branch)
         {
             if (ModelState.IsValid)
             {
@@ -123,5 +127,22 @@ namespace WebApplication1.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public MapPoint GetdtLatLongGoogle(string address)
+        {
+            try
+            {
+                var locationService = new GoogleLocationService(m_GeocodingAPIKey);
+                var point = locationService.GetLatLongFromAddress(address);
+                return point;
+            }
+            catch (Exception exception)
+            {
+                System.Diagnostics.Debug.WriteLine(exception.ToString());
+            }
+
+            return null;
+        }
+
     }
 }
