@@ -32,9 +32,6 @@
             @Html.DisplayFor(modelItem => item.Branch.Address)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Trainer.Username)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
@@ -49,3 +46,9 @@
 }
 
 </table>
+
+<div>
+    @Html.ActionLink("Search by parameters", "Search")
+    <p>    </p>
+    @Html.ActionLink("All Classes", "Index")
+</div>

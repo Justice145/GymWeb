@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Search";
+}
+
+@model WebApplication1.Models.ClassSearchViewModel
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search classes</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Branches</h4>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <select name="branchId" id="branchId">
+                @foreach (var item in Model.Branches)
+                {
+                    <option value="@Html.DisplayFor(modelItem => item.Id)"> @Html.DisplayFor(modelItem => item.Address) </option>
+                    <br />
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Search" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+<h2></h2>
+

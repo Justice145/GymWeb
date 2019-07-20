@@ -17,8 +17,53 @@ namespace WebApplication1.Controllers
         // GET: Classes
         public ActionResult Index()
         {
-            var classes = db.Classes.Include(a => a.Branch).Include(a => a.Trainer);
-            return View(classes.ToList());
+            List<Class> classes;
+            if (TempData["search"] == null)
+            {
+                classes = db.Classes.Include(a => a.Branch).Include(a => a.Trainer).ToList();
+                
+            }
+            else
+            {
+                classes = TempData["search"] as List<Class>;
+                TempData["Search"] = null;
+            }
+
+            System.Diagnostics.Debug.WriteLine("Indexing" + classes[0].Name + classes.Count());
+            return View(classes);
+        }
+
+        // GET: Classes/Search
+        public ActionResult Search()
+        {
+            var branches = db.Branches.ToList();
+            return View(new ClassSearchViewModel() { Branches = branches });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Search (int? branchId)
+        {
+
+            if (branchId == null)
+            {
+                System.Diagnostics.Debug.WriteLine("null");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var requestedBranch = db.Branches.Find(branchId);
+            var requestedBranchId = requestedBranch.Id;
+
+            var matching = from cls in db.Classes
+                                       where cls.BranchId == requestedBranchId
+                                       select cls;
+
+            var all = matching.ToList();
+            System.Diagnostics.Debug.WriteLine(all.ToString());
+
+            TempData["search"] = all;
+
+            return RedirectToAction("Index");
         }
 
         // GET: Classes/Details/5
