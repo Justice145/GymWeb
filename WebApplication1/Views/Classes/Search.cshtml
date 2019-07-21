@@ -11,40 +11,80 @@
 <h2>Search classes</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
 {
     @Html.AntiForgeryToken()
-
-<div class="form-horizontal">
-    <h4>Branches</h4>
-
-    <div class="form-group">
-        <div class="col-md-10">
-            <select name="branchId" id="branchId">
-                @foreach (var item in Model.Branches)
-                {
-                    <option value="@Html.DisplayFor(modelItem => item.Id)"> @Html.DisplayFor(modelItem => item.Address) </option>
-                    <br />
-                }
-            </select>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Search" class="btn btn-default" />
-        </div>
-    </div>
-</div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <h4 class="col-md-10">Branches</h4>
+    <div id="branchdiv">
+        <div class="col-md-10">
+            @foreach (var item in Model.Branches)
+            {
+                <input type="checkbox" name="@Html.DisplayFor(modelItem => item.Address)" value="@Html.DisplayFor(modelItem => item.Id)"> @Html.DisplayFor(modelItem => item.Address)
+            }
+        </div>
+    </div>
+    <div class="col-md-10"> <br /> </div>
+    <h4 class="col-md-10"> Class Types</h4>
+    <div id="classdiv">
+        <div class="col-md-10">
+            @foreach (var item in Model.ClassNames)
+            {
+                <input type="checkbox" name="@item" value="@item"> @item
+            }
+        </div>
+    </div>
+
+    <div class="col-md-10"> <br /> </div>
+    <div class="col-md-10">
+        <a href="#" id="mybutton" class="btn btn-default">Search </a>
+    </div>
+    <div class="col-md-10"> <br /> </div>
+    <div class="col-md-10">
+        @Html.ActionLink("Back to List", "Index")
+    </div>
 </div>
+
+
+
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>    
+    $(document).ready(function() {
+        $('#mybutton').click(function () {
+        var form = $('#__AjaxAntiForgeryForm');
+        var token = $('input[name="__RequestVerificationToken"]', form).val();
+        var branches = [];
+        $('#branchdiv input:checked').each(function() {
+            branches.push(this.value);
+        });
+        var classes = [];
+        $('#classdiv input:checked').each(function() {
+            classes.push(this.name);
+        });
+        // now names contains all of the names of checked checkboxes
+        // do something with it for excamle post with ajax
+        $.ajax({
+            url: '@Url.Action("Search", "Classes")',
+            type: 'POST',
+            data: { __RequestVerificationToken: token, branchIds: branches, classNames: classes },
+            success: function (response) {
+                if (response.result == 'Redirect')
+                    window.location = response.url;
+            },
+            error: function (result) {
+                alert("error!");
+            }
+        });   //end ajax
+    });
+});
+    </script>
 }
+
 
 
 <h2></h2>

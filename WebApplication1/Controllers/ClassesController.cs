@@ -37,33 +37,52 @@ namespace WebApplication1.Controllers
         public ActionResult Search()
         {
             var branches = db.Branches.ToList();
-            return View(new ClassSearchViewModel() { Branches = branches });
+            var classes = db.Classes.ToList();
+            List<String> classNames = new List<String>();
+
+            foreach(var gymClass in classes)
+            {
+                bool toAdd = true;
+
+                foreach (var name in classNames)
+                {
+                    if (name.Equals(gymClass.Name))
+                    {
+                        toAdd = false;
+                    }
+                }
+
+                if (toAdd)
+                    classNames.Add(gymClass.Name);
+            }
+            
+            return View(new ClassSearchViewModel() { Branches = branches, ClassNames = classNames });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Search (int? branchId)
+        public ActionResult Search (int [] branchIds, String [] classNames)
         {
-
-            if (branchId == null)
+            System.Diagnostics.Debug.WriteLine("hey");
+            if (branchIds == null || classNames == null)
             {
-                System.Diagnostics.Debug.WriteLine("null");
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["Search"] = new List<Class>();
             }
-
-            var requestedBranch = db.Branches.Find(branchId);
-            var requestedBranchId = requestedBranch.Id;
-
-            var matching = from cls in db.Classes
-                                       where cls.BranchId == requestedBranchId
+            else
+            {
+                var matchingByBranch = from cls in db.Classes
+                                       join p in branchIds on cls.BranchId equals p
                                        select cls;
 
-            var all = matching.ToList();
-            System.Diagnostics.Debug.WriteLine(all.ToString());
+                var matchingByClassNames = from cls in matchingByBranch
+                                           join p in classNames on cls.Name equals p
+                                           select cls;
 
-            TempData["search"] = all;
+                var all = matchingByClassNames.Include(u => u.Trainer).Include(u => u.Branch).ToList();
 
-            return RedirectToAction("Index");
+                TempData["search"] = all;
+            }
+            return Json(new { result = "Redirect", url = Url.Action("Index", "Classes") });
         }
 
         // GET: Classes/Details/5

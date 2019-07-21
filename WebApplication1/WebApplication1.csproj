@@ -46,6 +46,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MvcCheckBoxList, Version=1.4.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvcCheckBoxList.1.4.5\lib\net45\MvcCheckBoxList.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -190,6 +193,10 @@
     <Compile Include="Migrations\201907181531080_AddAddressRegistration.Designer.cs">
       <DependentUpon>201907181531080_AddAddressRegistration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907211646550_AddClassNamesToSearch.cs" />
+    <Compile Include="Migrations\201907211646550_AddClassNamesToSearch.Designer.cs">
+      <DependentUpon>201907211646550_AddClassNamesToSearch.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Branch.cs" />
@@ -310,6 +317,7 @@
     <Content Include="Views\Classes\Details.cshtml" />
     <Content Include="Views\Classes\Edit.cshtml" />
     <Content Include="Views\Classes\Index.cshtml" />
+    <Content Include="Views\Classes\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -333,6 +341,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907181531080_AddAddressRegistration.resx">
       <DependentUpon>201907181531080_AddAddressRegistration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907211646550_AddClassNamesToSearch.resx">
+      <DependentUpon>201907211646550_AddClassNamesToSearch.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
