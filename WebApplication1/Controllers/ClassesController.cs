@@ -29,7 +29,7 @@ namespace WebApplication1.Controllers
                 TempData["Search"] = null;
             }
 
-            System.Diagnostics.Debug.WriteLine("Indexing" + classes[0].Name + classes.Count());
+            //System.Diagnostics.Debug.WriteLine("Indexing" + classes[0].Name + classes.Count());
             return View(classes);
         }
 
@@ -85,7 +85,7 @@ namespace WebApplication1.Controllers
         public ActionResult Create()
         {
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Address");
-            ViewBag.TrainerID = new SelectList(db.Users, "Id", "Username");
+            ViewBag.TrainerID = new SelectList(db.Users1, "Id", "Username");
             return View();
         }
 

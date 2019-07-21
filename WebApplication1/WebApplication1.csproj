@@ -194,6 +194,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Branch.cs" />
     <Compile Include="Models\Class.cs" />
+    <Compile Include="Models\ClassSearchViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RegisterToClassViewModel.cs" />
