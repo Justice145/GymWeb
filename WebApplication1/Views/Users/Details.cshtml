@@ -19,22 +19,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Address)
         </dt>
 
@@ -51,14 +35,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.UserType)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserType)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Classes)
         </dt>
 
@@ -69,8 +45,8 @@
             @using (Html.BeginForm("RegisterToClass", "Users", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
-                <form action="/Users/RegisterToClass/@Model.Id" method="Post">
-                    <input type="hidden" id="id" name="id" value="@Model.Id" />
+                <form action="/Users/RegisterToClass/@item.Id" method="Post">
+                    <input type="hidden" id="id" name="id" value="@item.Id" />
                     <input type="hidden" id="registerOrCancel" name="registerOrCancel" value="cancel" />
                     <input type="hidden" id="classId" name="classId" value="@item.Id">
                     <button type="submit" class="btn btn-default">Cancel</button>

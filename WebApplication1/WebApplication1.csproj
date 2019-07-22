@@ -185,17 +185,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201907161610078_InitialCreate.cs" />
-    <Compile Include="Migrations\201907161610078_InitialCreate.Designer.cs">
-      <DependentUpon>201907161610078_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201907221715130_Init.cs" />
+    <Compile Include="Migrations\201907221715130_Init.Designer.cs">
+      <DependentUpon>201907221715130_Init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201907181531080_AddAddressRegistration.cs" />
-    <Compile Include="Migrations\201907181531080_AddAddressRegistration.Designer.cs">
-      <DependentUpon>201907181531080_AddAddressRegistration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907211646550_AddClassNamesToSearch.cs" />
-    <Compile Include="Migrations\201907211646550_AddClassNamesToSearch.Designer.cs">
-      <DependentUpon>201907211646550_AddClassNamesToSearch.cs</DependentUpon>
+    <Compile Include="Migrations\201907221740382_ChangeToStringID.cs" />
+    <Compile Include="Migrations\201907221740382_ChangeToStringID.Designer.cs">
+      <DependentUpon>201907221740382_ChangeToStringID.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -335,14 +331,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201907161610078_InitialCreate.resx">
-      <DependentUpon>201907161610078_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201907221715130_Init.resx">
+      <DependentUpon>201907221715130_Init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907181531080_AddAddressRegistration.resx">
-      <DependentUpon>201907181531080_AddAddressRegistration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907211646550_AddClassNamesToSearch.resx">
-      <DependentUpon>201907211646550_AddClassNamesToSearch.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201907221740382_ChangeToStringID.resx">
+      <DependentUpon>201907221740382_ChangeToStringID.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

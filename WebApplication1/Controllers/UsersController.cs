@@ -21,7 +21,7 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Users/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
@@ -46,7 +46,7 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,UserName,Password,Name,Address,PhoneNumber,UserType")] ApplicationUser user)
+        public ActionResult Create([Bind(Include = "Id,UserName,Address,PhoneNumber")] ApplicationUser user)
         {
             if (ModelState.IsValid)
             {
@@ -59,7 +59,7 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Users/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {

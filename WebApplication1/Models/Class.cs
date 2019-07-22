@@ -17,7 +17,7 @@ namespace WebApplication1.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd on hh:mm}", ApplyFormatInEditMode = true)]
         public DateTime Time { get; set; }
         
-        public int TrainerID { get; set; }
+        public string TrainerID { get; set; }
 
         public virtual ApplicationUser Trainer { get; set; }
 
