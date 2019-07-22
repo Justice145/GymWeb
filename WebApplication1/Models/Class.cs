@@ -19,9 +19,9 @@ namespace WebApplication1.Models
         
         public int TrainerID { get; set; }
 
-        public virtual User Trainer { get; set; }
+        public virtual ApplicationUser Trainer { get; set; }
 
-        public virtual ICollection<User> Trainees { get; set; }
+        public virtual ICollection<ApplicationUser> Trainees { get; set; }
         
         public int BranchId { get; set; }
 

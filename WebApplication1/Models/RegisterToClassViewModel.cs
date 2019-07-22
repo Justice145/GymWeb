@@ -7,7 +7,7 @@ namespace WebApplication1.Models
 {
     public class RegisterToClassViewModel
     {
-        public User User { get; set; }
+        public ApplicationUser User { get; set; }
         public List<Class> Classes { get; set; }
     }
 }

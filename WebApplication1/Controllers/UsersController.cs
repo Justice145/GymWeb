@@ -17,7 +17,7 @@ namespace WebApplication1.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            return View(db.Users1.ToList());
+            return View(db.Users.ToList());
         }
 
         // GET: Users/Details/5
@@ -27,7 +27,7 @@ namespace WebApplication1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users1.Find(id);
+            ApplicationUser user = db.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -46,11 +46,11 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Username,Password,Name,Address,PhoneNumber,UserType")] User user)
+        public ActionResult Create([Bind(Include = "Id,UserName,Password,Name,Address,PhoneNumber,UserType")] ApplicationUser user)
         {
             if (ModelState.IsValid)
             {
-                db.Users1.Add(user);
+                db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -65,7 +65,7 @@ namespace WebApplication1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users1.Find(id);
+            ApplicationUser user = db.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -78,7 +78,7 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Username,Password,Name,Address,PhoneNumber,UserType")] User user)
+        public ActionResult Edit([Bind(Include = "Id,UserName,Password,Name,Address,PhoneNumber,UserType")] ApplicationUser user)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +96,7 @@ namespace WebApplication1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users1.Find(id);
+            ApplicationUser user = db.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -109,8 +109,8 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            User user = db.Users1.Find(id);
-            db.Users1.Remove(user);
+            ApplicationUser user = db.Users.Find(id);
+            db.Users.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

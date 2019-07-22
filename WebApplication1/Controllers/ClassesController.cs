@@ -104,7 +104,7 @@ namespace WebApplication1.Controllers
         public ActionResult Create()
         {
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Address");
-            ViewBag.TrainerID = new SelectList(db.Users1, "Id", "Username");
+            ViewBag.TrainerID = new SelectList(db.Users1, "Id", "UserName");
             return View();
         }
 
@@ -123,7 +123,7 @@ namespace WebApplication1.Controllers
             }
 
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Address", @class.BranchId);
-            ViewBag.TrainerID = new SelectList(db.Users, "Id", "Username", @class.TrainerID);
+            ViewBag.TrainerID = new SelectList(db.Users, "Id", "UserName", @class.TrainerID);
             return View(@class);
         }
 
@@ -140,7 +140,7 @@ namespace WebApplication1.Controllers
                 return HttpNotFound();
             }
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Address", @class.BranchId);
-            ViewBag.TrainerID = new SelectList(db.Users, "Id", "Username", @class.TrainerID);
+            ViewBag.TrainerID = new SelectList(db.Users, "Id", "UserName", @class.TrainerID);
             return View(@class);
         }
 
@@ -158,7 +158,7 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Address", @class.BranchId);
-            ViewBag.TrainerID = new SelectList(db.Users, "Id", "Username", @class.TrainerID);
+            ViewBag.TrainerID = new SelectList(db.Users, "Id", "UserName", @class.TrainerID);
             return View(@class);
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -6,6 +7,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace WebApplication1.Models
 {
+
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
@@ -19,6 +21,7 @@ namespace WebApplication1.Models
 
         public string Address { get; set; }
 
+        public virtual ICollection<Class> Classes { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -36,7 +39,5 @@ namespace WebApplication1.Models
         public System.Data.Entity.DbSet<WebApplication1.Models.Branch> Branches { get; set; }
 
         public System.Data.Entity.DbSet<WebApplication1.Models.Class> Classes { get; set; }
-
-        public System.Data.Entity.DbSet<WebApplication1.Models.User> Users1 { get; set; }
     }
 }
