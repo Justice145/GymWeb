@@ -104,7 +104,7 @@ namespace WebApplication1.Controllers
         public ActionResult Create()
         {
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Address");
-            ViewBag.TrainerID = new SelectList(db.Users1, "Id", "UserName");
+            ViewBag.TrainerID = new SelectList(db.Users, "Id", "UserName");
             return View();
         }
 
