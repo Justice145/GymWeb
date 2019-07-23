@@ -8,7 +8,7 @@
     ViewBag.Title = "Search";
 }
 
-<h2>Search classes</h2>
+<h2>Search branches</h2>
 
 
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
@@ -17,7 +17,7 @@
 }
 
 <div>
-    <h4 class="col-md-10"> Class Types</h4>
+    <div> <h4>Specific class requirements   (If left untouched, no class requirements will be applied) </h4> </div>
     <div id="classdiv">
         <div class="col-md-10">
             @foreach (var item in Model.ClassNames)
@@ -28,29 +28,36 @@
     </div>
     <div class="col-md-10"> <br /> </div>
 
+    <h4 class="col-md-10"> Maximal week day open</h4>
     <!-- Get the requested opening (WeekDays)-->
+    <input type="text" id="wdOpen" class="timepickeropen col-md-10" />
     <div class="col-md-10"> <br /> </div>
-    <input type="time" id="wdOpen" />
 
+    <h4 class="col-md-10"> Minimal week day close</h4>
     <!-- Get the requested closing (WeekDays)-->
+    <input type="text" id="wdClose" class="timepickerclose col-md-10" />
     <div class="col-md-10"> <br /> </div>
-    <input type="time" id="wdClose" />
 
+    <h4 class="col-md-10"> Maximal friday open</h4>
     <!-- Get the requested opening (Fridays)-->
+    <input type="text" id="fridayOpen" class="timepickeropen col-md-10" />
     <div class="col-md-10"> <br /> </div>
-    <input type="time" id="fridayOpen" />
 
+    <h4 class="col-md-10"> Minimal friday close</h4>
     <!-- Get the requested closing (Fridays)-->
+    <input type="text" id="fridayClose" class="timepickerclose col-md-10" />
     <div class="col-md-10"> <br /> </div>
-    <input type="time" id="fridayClose" />
 
+
+    <h4 class="col-md-10"> Maximal saturday open</h4>
     <!-- Get the requested opening (Saturdays)-->
+    <input type="text" id="saturdayOpen" class="timepickeropen col-md-10" />
     <div class="col-md-10"> <br /> </div>
-    <input type="time" id="saturdayOpen" />
 
+    <h4 class="col-md-10"> Minimal saturday close</h4>
     <!-- Get the requested closing (Saturdays)-->
+    <input type="text" id="saturdayClose" class="timepickerclose col-md-10" />
     <div class="col-md-10"> <br /> </div>
-    <input type="time" id="saturdayClose" />
 
     <div class="col-md-10"> <br /> </div>
     <div class="col-md-10">
@@ -60,14 +67,46 @@
     <div class="col-md-10">
         @Html.ActionLink("Back to List", "Index")
     </div>
+    <div class="col-md-10"> <br /> </div>
+    <div class="col-md-10"> <br /> </div>
+    <div class="col-md-10"> <br /> </div>
+    <div class="col-md-10"> <br /> </div>
+    <div class="col-md-10"> <br /> </div>
+
+
+
 </div>
-
-
-
 
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <link rel="stylesheet" type="text/css" href="/timepicker/jquery.timepicker.css" />
+    <script src="/timepicker/jquery.timepicker.js"></script>
+    <script>
+            $('.timepickeropen').timepicker({
+        timeFormat: 'h:mm p',
+        interval: 60,
+        minTime: '06:00am',
+        maxTime: '11:00am',
+        defaultTime: '09:00am',
+        startTime: '06:00am',
+        dynamic: true,
+        dropdown: true,
+        scrollbar: true
+            });
+
+                $('.timepickerclose').timepicker({
+        timeFormat: 'h:mm p',
+        interval: 60,
+        minTime: '16:00pm',
+        maxTime: '23:00pm',
+        defaultTime: '21:00pm',
+        startTime: '17:00pm',
+        dynamic: true,
+        dropdown: true,
+        scrollbar: true
+        });
+    </script>
     <script>
 
     $(document).ready(function() {
@@ -87,7 +126,7 @@
             data: {
                 __RequestVerificationToken: token, classNames: classes, wdOpen: $('#wdOpen').val(),
                 wdClose: $('#wdClose').val(), fridayOpen: $('#fridayOpen').val(),
-                fridayClose: $('#fridayClose').val(), saturdayOpen: $('#saturdayOpen').val(), 
+                fridayClose: $('#fridayClose').val(), saturdayOpen: $('#saturdayOpen').val(),
                 saturdayClose: $('#saturdayClose').val()
             },
             success: function (response) {

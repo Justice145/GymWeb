@@ -17,7 +17,18 @@ namespace WebApplication1
         // GET: Branches
         public ActionResult Index()
         {
-            return View(db.Branches.ToList());
+            List<Branch> branches;
+            if (TempData["search"] == null)
+            {
+                branches = db.Branches.Include(a => a.Classes).ToList();
+            }
+            else
+            {
+                branches = TempData["search"] as List<Branch>;
+                TempData["Search"] = null;
+            }
+
+            return View(branches);
         }
 
         // GET: Branches/Details/5
@@ -116,20 +127,61 @@ namespace WebApplication1
                 }
             }
 
-            return View(new ClassSearchViewModel() { ClassNames = classNames });
+            return View(new BranchSearchViewModel() { ClassNames = classNames });
         }
 
-        public ActionResult Search(String [] classNames, TimeSpan wdOpen, TimeSpan wdClose, TimeSpan fridayOpen,
-                                    TimeSpan fridayClose, TimeSpan saturdayOpen, TimeSpan saturdayClose)
+        //POST: Branches/Search
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Search(String [] classNames, String wdOpen, String wdClose, String fridayOpen,
+                                    String fridayClose, String saturdayOpen, String saturdayClose)
         {
-            var matchingBranchesByClasses = from brch in db.Branches
-                                            on exist (from clsName in brch.Classes
-                                                          join p in classNames on clsName equals p)
+            //Wrong input
+            if (wdOpen == null || wdClose == null || fridayOpen == null 
+                || fridayClose == null || saturdayOpen == null || saturdayClose == null)
+            {
+                TempData["Search"] = new List<Branch>();
+            }
+            else
+            {
+                TimeSpan wdOpenParse = DateTime.Parse(wdOpen).TimeOfDay;
+                TimeSpan wdCloseParse = DateTime.Parse(wdClose).TimeOfDay;
+                TimeSpan fridayOpenParse = DateTime.Parse(fridayOpen).TimeOfDay;
+                TimeSpan fridayCloseParse = DateTime.Parse(fridayClose).TimeOfDay;
+                TimeSpan saturdayOpenParse = DateTime.Parse(saturdayOpen).TimeOfDay;
+                TimeSpan saturdayCloseParse = DateTime.Parse(saturdayClose).TimeOfDay;
+
+                var matchingByHours = from brch in db.Branches
+                                      where (wdOpenParse >= brch.WeekDayOpen)
+                                      && (wdCloseParse <= brch.WeekDayClose)
+                                      && (fridayOpenParse >= brch.FridayOpen)
+                                      && (fridayCloseParse <= brch.FridayClose)
+                                      && (saturdayOpenParse >= brch.SaturdayOpen)
+                                      && (saturdayCloseParse <= brch.SaturdayClose)
+                                      select brch;
+
+                List<Branch> all;
+
+                //No class requirements
+                if (classNames == null)
+                {
+                    all = matchingByHours.Include(u => u.Classes).ToList();
+                }
+                //Some class requirements
+                else
+                {
+                    var matchingByClasses = from brch in matchingByHours
+                                            where ((from cls in brch.Classes
+                                                    join p in classNames on cls.Name equals p
+                                                    select cls).Count() > 0)
                                             select brch;
 
-            var matchingByHours = from brc in db.Branches
-                                  select brc
-                                  where (brc.;
+                    all = matchingByClasses.Include(u => u.Classes).ToList();
+                }
+
+                TempData["search"] = all;
+            }
+            return Json(new { result = "Redirect", url = Url.Action("Index", "Branches") });
         }
 
         // GET: Branches/Delete/5
