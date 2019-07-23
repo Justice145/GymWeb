@@ -2,7 +2,7 @@
     ViewBag.Title = "Search";
 }
 
-@model WebApplication1.Models.ClassSearchViewModel
+@model WebApplication1.Models.BranchSearchViewModel
 
 @{
     ViewBag.Title = "Search";
@@ -17,17 +17,6 @@
 }
 
 <div>
-    <h4 class="col-md-10">Branches</h4>
-    <div id="branchdiv">
-        <div class="col-md-10">
-            @foreach (var item in Model.Branches)
-            {
-                <input type="checkbox" name="@Html.DisplayFor(modelItem => item.Address)" value="@Html.DisplayFor(modelItem => item.Id)"> @Html.DisplayFor(modelItem => item.Address)
-            }
-        </div>
-    </div>
-    <div class="col-md-10"> <br /> </div>
-
     <h4 class="col-md-10"> Class Types</h4>
     <div id="classdiv">
         <div class="col-md-10">
@@ -37,6 +26,32 @@
             }
         </div>
     </div>
+    <div class="col-md-10"> <br /> </div>
+
+    <!-- Get the requested opening (WeekDays)-->
+    <div class="col-md-10"> <br /> </div>
+    <input type="time" id="wdOpen" />
+
+    <!-- Get the requested closing (WeekDays)-->
+    <div class="col-md-10"> <br /> </div>
+    <input type="time" id="wdClose" />
+
+    <!-- Get the requested opening (Fridays)-->
+    <div class="col-md-10"> <br /> </div>
+    <input type="time" id="fridayOpen" />
+
+    <!-- Get the requested closing (Fridays)-->
+    <div class="col-md-10"> <br /> </div>
+    <input type="time" id="fridayClose" />
+
+    <!-- Get the requested opening (Saturdays)-->
+    <div class="col-md-10"> <br /> </div>
+    <input type="time" id="saturdayOpen" />
+
+    <!-- Get the requested closing (Saturdays)-->
+    <div class="col-md-10"> <br /> </div>
+    <input type="time" id="saturdayClose" />
+
     <div class="col-md-10"> <br /> </div>
     <div class="col-md-10">
         <a href="#" id="mybutton" class="btn btn-default">Search </a>
@@ -53,25 +68,28 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    <script>    
+    <script>
+
     $(document).ready(function() {
         $('#mybutton').click(function () {
         var form = $('#__AjaxAntiForgeryForm');
         var token = $('input[name="__RequestVerificationToken"]', form).val();
-        var branches = [];
-        $('#branchdiv input:checked').each(function() {
-            branches.push(this.value);
-        });
         var classes = [];
         $('#classdiv input:checked').each(function() {
             classes.push(this.name);
         });
+
         // now names contains all of the names of checked checkboxes
         // do something with it for excamle post with ajax
         $.ajax({
-            url: '@Url.Action("Search", "Classes")',
+            url: '@Url.Action("Search", "Branches")',
             type: 'POST',
-            data: { __RequestVerificationToken: token, branchIds: branches, classNames: classes },
+            data: {
+                __RequestVerificationToken: token, classNames: classes, wdOpen: $('#wdOpen').val(),
+                wdClose: $('#wdClose').val(), fridayOpen: $('#fridayOpen').val(),
+                fridayClose: $('#fridayClose').val(), saturdayOpen: $('#saturdayOpen').val(), 
+                saturdayClose: $('#saturdayClose').val()
+            },
             success: function (response) {
                 if (response.result == 'Redirect')
                     window.location = response.url;

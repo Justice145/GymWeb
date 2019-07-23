@@ -89,6 +89,49 @@ namespace WebApplication1
             return View(branch);
         }
 
+        // Get:: Branches/Search
+        public ActionResult Search()
+        {
+            var classes = db.Classes.ToList();
+            List<String> classNames = new List<String>();
+
+            foreach (var classInstance in classes)
+            {
+                bool toAdd = true;
+
+                foreach (var className in classNames)
+                { 
+
+                    if (className.Equals(classInstance.Name))
+                    {
+                        toAdd = false;
+                        break;
+                    }
+
+                }
+
+                if (toAdd)
+                {
+                    classNames.Add(classInstance.Name);
+                }
+            }
+
+            return View(new ClassSearchViewModel() { ClassNames = classNames });
+        }
+
+        public ActionResult Search(String [] classNames, TimeSpan wdOpen, TimeSpan wdClose, TimeSpan fridayOpen,
+                                    TimeSpan fridayClose, TimeSpan saturdayOpen, TimeSpan saturdayClose)
+        {
+            var matchingBranchesByClasses = from brch in db.Branches
+                                            on exist (from clsName in brch.Classes
+                                                          join p in classNames on clsName equals p)
+                                            select brch;
+
+            var matchingByHours = from brc in db.Branches
+                                  select brc
+                                  where (brc.;
+        }
+
         // GET: Branches/Delete/5
         public ActionResult Delete(int? id)
         {
