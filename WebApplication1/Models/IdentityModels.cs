@@ -21,6 +21,7 @@ namespace WebApplication1.Models
 
         public string Address { get; set; }
 
+        public string Name { get; set; }
         public virtual ICollection<Class> Classes { get; set; }
     }
 

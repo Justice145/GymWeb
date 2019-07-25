@@ -28,7 +28,7 @@
                 <select name="classId" id="classId">
                     @foreach (var item in Model.Classes)
                     {
-                        <option value="@Html.DisplayFor(modelItem => item.Id)"> @Html.DisplayFor(modelItem => item.Name) on @Html.DisplayFor(modelItem => item.Time) </option>
+                        <option value="@Html.DisplayFor(modelItem => item.Id)"> @Html.DisplayFor(modelItem => item.Name) on @Html.DisplayFor(modelItem => item.Time) at @Html.DisplayFor(modelItem => item.Branch.Address)</option>
                         <br />
                     }
                 </select>

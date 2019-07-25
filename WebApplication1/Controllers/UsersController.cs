@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
@@ -46,10 +47,11 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,UserName,Address,PhoneNumber")] ApplicationUser user)
+        public ActionResult Create([Bind(Include = "Id,Email,Password,Name,Address,PhoneNumber")] ApplicationUser user)
         {
             if (ModelState.IsValid)
             {
+                user.UserName = user.Email;
                 db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -78,10 +80,11 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,UserName,Password,Name,Address,PhoneNumber,UserType")] ApplicationUser user)
+        public ActionResult Edit([Bind(Include = "Id,Email,Name,Address,PhoneNumber,UserType")] ApplicationUser user)
         {
             if (ModelState.IsValid)
             {
+                user.UserName = user.Email;
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -90,7 +93,7 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Users/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
@@ -107,8 +110,12 @@ namespace WebApplication1.Controllers
         // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             ApplicationUser user = db.Users.Find(id);
             db.Users.Remove(user);
             db.SaveChanges();
@@ -122,6 +129,75 @@ namespace WebApplication1.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        // GET: Users/RegisterToClass/5
+        public ActionResult RegisterToClass(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ApplicationUser user = db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            var classes = db.Classes.ToList();
+
+            return View(new RegisterToClassViewModel() { User = user, Classes = classes });
+        }
+
+        // POST: Users/RegisterToClass/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RegisterToClass(string id, string registerOrCancel, int? classId)
+        {
+
+            if (id == null || classId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var userToRegister = db.Users.Find(id);
+           
+            if (userToRegister == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var requestedClass = db.Classes.Find(classId);
+            if (requestedClass == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            bool returnToDetails = false;
+            if (registerOrCancel.Equals("cancel"))
+            {
+                userToRegister.Classes.Remove(requestedClass);
+                requestedClass.Trainees.Remove(userToRegister);
+                returnToDetails = true;
+            }
+            else if (registerOrCancel.Equals("register"))
+            {
+                userToRegister.Classes.Add(requestedClass);
+                requestedClass.Trainees.Add(userToRegister);
+            }
+            else
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            db.Entry(userToRegister).State = EntityState.Modified;
+            db.SaveChanges();
+
+            if (returnToDetails)
+            {
+                return RedirectToAction("Details", new RouteValueDictionary(
+                                                        new { controller = "Users", action = "Main", id = id }));
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }
