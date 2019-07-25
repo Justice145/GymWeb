@@ -173,7 +173,7 @@ namespace WebApplication1
                     var matchingByClasses = from brch in matchingByHours
                                             where ((from cls in brch.Classes
                                                     join p in classNames on cls.Name equals p
-                                                    select cls).Count() > 0)
+                                                    select cls).Count() == classNames.Count())
                                             select brch;
 
                     all = matchingByClasses.Include(u => u.Classes).ToList();

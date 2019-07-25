@@ -41,4 +41,12 @@ namespace WebApplication1.Models
 
         public System.Data.Entity.DbSet<WebApplication1.Models.Class> Classes { get; set; }
     }
+
+    public class RoleNames
+    {
+        public const string ROLE_ADMINISTRATOR = "Admin";
+        public const string ROLE_TRAINEE = "Trainee";
+        public const string ROLE_TRAINER = "Trainer";
+    }
+
 }

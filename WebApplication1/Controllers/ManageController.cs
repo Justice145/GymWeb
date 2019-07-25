@@ -64,13 +64,24 @@ namespace WebApplication1.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+            var roles = UserManager.GetRoles(userId);
+            System.Diagnostics.Debug.WriteLine(roles.Count());
+
+            String roleName = "";
+            if (roles.Count() > 0)
+            {
+                roleName = roles[0];
+                System.Diagnostics.Debug.WriteLine(roleName);
+            }
+
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                Role = roleName
             };
             return View(model);
         }

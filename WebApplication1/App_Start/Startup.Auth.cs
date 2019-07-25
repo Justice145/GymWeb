@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
@@ -45,6 +46,9 @@ namespace WebApplication1
             // This is similar to the RememberMe option when you log in.
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
+            ApplicationDbContext context = new ApplicationDbContext();
+
+            SeedIdentities(context);
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(
             //    clientId: "",
@@ -64,5 +68,50 @@ namespace WebApplication1
             //    ClientSecret = ""
             //});
         }
+
+        internal static void SeedIdentities(ApplicationDbContext context)
+        {
+        
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+        
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+
+            var adminLogin = "admin@gmail.com";
+            var adminPass = "Aa123456";
+            var admin = userManager.FindByName(adminLogin);
+
+            if (admin == null)
+            {
+                admin = new ApplicationUser()
+                {
+                    UserName = adminLogin,
+                    Email = adminLogin,
+                    EmailConfirmed = true,
+                    Name = adminLogin
+                };
+
+                userManager.Create(admin, adminPass);
+                admin = userManager.FindByName(adminLogin);
+                userManager.AddToRole(admin.Id, RoleNames.ROLE_ADMINISTRATOR);
+            }
+        
+            if (!roleManager.RoleExists(RoleNames.ROLE_ADMINISTRATOR))        
+            {
+                var roleresult = roleManager.Create(new IdentityRole(RoleNames.ROLE_ADMINISTRATOR));
+            }
+        
+            if (!roleManager.RoleExists(RoleNames.ROLE_TRAINEE))
+        
+            {
+                var roleresult = roleManager.Create(new IdentityRole(RoleNames.ROLE_TRAINEE));
+            }
+        
+            if (!roleManager.RoleExists(RoleNames.ROLE_TRAINER))
+            {
+                var roleresult = roleManager.Create(new IdentityRole(RoleNames.ROLE_TRAINER)); 
+            }
+       
+        }
+
     }
 }
