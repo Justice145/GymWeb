@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -103,8 +104,21 @@ namespace WebApplication1.Controllers
         // GET: Classes/Create
         public ActionResult Create()
         {
+            if (System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_TRAINER))
+            {
+               var specific = db.Users.Find(User.Identity.GetUserId());
+               ViewBag.BranchId = specific;
+            }
+            else if (System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR))
+            {
+               ViewBag.TrainerID = new SelectList(db.Users, "Id", "UserName");
+            }
+            else
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Address");
-            ViewBag.TrainerID = new SelectList(db.Users, "Id", "UserName");
+            
             return View();
         }
 
@@ -115,6 +129,17 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,Time,TrainerID,BranchId")] Class @class)
         {
+            if (System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_TRAINER))
+            {
+                if (!@class.TrainerID.Equals(User.Identity.GetUserId()))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+            }
+            else if (!System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             if (ModelState.IsValid)
             {
                 db.Classes.Add(@class);

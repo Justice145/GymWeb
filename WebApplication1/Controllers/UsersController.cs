@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -18,7 +20,31 @@ namespace WebApplication1.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            if (!System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var users = db.Users.ToList();
+            List<UserWithRoleViewModel> usersWithRoles = new List<UserWithRoleViewModel>(); 
+            foreach(var usr in users)
+            {
+                var userWithRole = new UserWithRoleViewModel();
+                userWithRole.Id = usr.Id;
+                userWithRole.Email = usr.Email;
+                userWithRole.UserName = usr.UserName;
+                userWithRole.Classes = usr.Classes;
+                userWithRole.Name = usr.Name;
+                userWithRole.Address = usr.Address;
+                userWithRole.PhoneNumber = usr.PhoneNumber;
+                userWithRole.RoleNames = (from userRole in usr.Roles
+                                          join role in db.Roles on userRole.RoleId equals role.Id
+                                          select role.Name).ToList();
+
+                usersWithRoles.Add(userWithRole);
+            }
+
+            return View(usersWithRoles);
         }
 
         // GET: Users/Details/5
@@ -27,6 +53,13 @@ namespace WebApplication1.Controllers
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (!System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR))
+            {
+                if (!(User.Identity.GetUserId().Equals(id)))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
             }
             ApplicationUser user = db.Users.Find(id);
             if (user == null)
@@ -39,6 +72,10 @@ namespace WebApplication1.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
+            if (!System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             return View();
         }
 
@@ -49,6 +86,10 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Email,Password,Name,Address,PhoneNumber")] ApplicationUser user)
         {
+            if (!System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             if (ModelState.IsValid)
             {
                 user.UserName = user.Email;
@@ -67,11 +108,33 @@ namespace WebApplication1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            ViewBag.IsAdmin = false;
+            if (!System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR))
+            {
+                if (!(User.Identity.GetUserId().Equals(id)))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+            }
+            else
+            {
+                ViewBag.IsAdmin = true;
+            }
             ApplicationUser user = db.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
             }
+
+            var RoleList = new List<String>();
+
+            RoleList.Add(RoleNames.ROLE_ADMINISTRATOR);
+
+            RoleList.Add(RoleNames.ROLE_TRAINEE);
+
+            RoleList.Add(RoleNames.ROLE_TRAINER);
+
+            ViewBag.Roles = RoleList;
             return View(user);
         }
 
@@ -80,11 +143,27 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Email,Name,Address,PhoneNumber,UserType")] ApplicationUser user)
+        public ActionResult Edit([Bind(Include = "Id,Email,Name,Address,PhoneNumber,UserType")] ApplicationUser user, String Role)
         {
+            if (!System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR))
+            {
+                if (!(User.Identity.GetUserId().Equals(user.Id)))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+            }
+            if (!Role.Equals(RoleNames.ROLE_ADMINISTRATOR) && !Role.Equals(RoleNames.ROLE_TRAINEE)
+                    && !Role.Equals(RoleNames.ROLE_TRAINER))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             if (ModelState.IsValid)
             {
                 user.UserName = user.Email;
+                user.Roles.Clear();
+                //var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                //manager.RemoveFromRoles(user.Id, RoleNames.ROLE_ADMINISTRATOR, RoleNames.ROLE_TRAINEE, RoleNames.ROLE_TRAINER);
+                //manager.AddToRole(user.Id, Role);
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -95,6 +174,10 @@ namespace WebApplication1.Controllers
         // GET: Users/Delete/5
         public ActionResult Delete(string id)
         {
+            if (!System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);  
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -112,6 +195,10 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
+            if (!System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -138,6 +225,13 @@ namespace WebApplication1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            if (!System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR))
+            {
+                if (!(User.Identity.GetUserId().Equals(id)))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+            }
             ApplicationUser user = db.Users.Find(id);
             if (user == null)
             {
@@ -153,10 +247,16 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult RegisterToClass(string id, string registerOrCancel, int? classId)
         {
-
             if (id == null || classId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (!System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR))
+            {
+                if (!(User.Identity.GetUserId().Equals(id)))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
             }
             var userToRegister = db.Users.Find(id);
            

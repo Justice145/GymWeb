@@ -49,6 +49,11 @@ namespace WebApplication1
         // GET: Branches/Create
         public ActionResult Create()
         {
+            if (!System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             return View();
         }
 
@@ -59,6 +64,11 @@ namespace WebApplication1
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Address,PhoneNumber,WeekDayOpen,WeekDayClose,FridayOpen,FridayClose,SaturdayOpen,SaturdayClose")] Branch branch)
         {
+            if (!System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR)) 
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             if (ModelState.IsValid)
             {
                 db.Branches.Add(branch);
@@ -72,6 +82,11 @@ namespace WebApplication1
         // GET: Branches/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (!System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -91,6 +106,11 @@ namespace WebApplication1
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Address,PhoneNumber,WeekDayOpen,WeekDayClose,FridayOpen,FridayClose,SaturdayOpen,SaturdayClose")] Branch branch)
         {
+            if (!System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(branch).State = EntityState.Modified;

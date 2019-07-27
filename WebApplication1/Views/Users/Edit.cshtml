@@ -49,6 +49,21 @@
         </div>
     </div>
 
+    @if (ViewBag.IsAdmin)
+    {
+    <div class="form-group">
+        <label class="col-md-2 control-label">Role</label>
+        <div class="col-md-10">
+            <select class="browser-default custom-select form-control" name="Role">
+                @foreach (var role in ViewBag.Roles)
+                {
+                    <option value="@role">@role</option>
+                }
+            </select>
+        </div>
+    </div>
+    }
+
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Save" class="btn btn-default" />
