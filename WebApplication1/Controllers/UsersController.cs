@@ -145,6 +145,11 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Email,Name,Address,PhoneNumber,UserType")] ApplicationUser user, String Role)
         {
+            List<String> allRoles = new List<String>();
+            allRoles.Add(RoleNames.ROLE_ADMINISTRATOR);
+            allRoles.Add(RoleNames.ROLE_TRAINEE);
+            allRoles.Add(RoleNames.ROLE_TRAINER);
+            
             if (!System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR))
             {
                 if (!(User.Identity.GetUserId().Equals(user.Id)))
@@ -152,19 +157,40 @@ namespace WebApplication1.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
             }
-            if (!Role.Equals(RoleNames.ROLE_ADMINISTRATOR) && !Role.Equals(RoleNames.ROLE_TRAINEE)
-                    && !Role.Equals(RoleNames.ROLE_TRAINER))
+
+            bool validRole = false;
+            foreach(var role in allRoles)
+            {
+                if (Role.Equals(role))
+                {
+                    validRole = true;
+                }
+            }
+
+            if (!validRole)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             if (ModelState.IsValid)
             {
                 user.UserName = user.Email;
-                user.Roles.Clear();
-                //var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
-                //manager.RemoveFromRoles(user.Id, RoleNames.ROLE_ADMINISTRATOR, RoleNames.ROLE_TRAINEE, RoleNames.ROLE_TRAINER);
-                //manager.AddToRole(user.Id, Role);
                 db.Entry(user).State = EntityState.Modified;
+                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                IList<String> currRoles = manager.GetRoles(user.Id);
+                
+                foreach(var roleName in currRoles)
+                {
+                    foreach(var roleToRemove in allRoles)
+                    {
+                        if (roleName.Equals(roleToRemove))
+                        {
+                            manager.RemoveFromRoles(user.Id, roleToRemove);
+                        }
+                    }
+                }
+
+                manager.AddToRole(user.Id, Role);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

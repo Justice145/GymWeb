@@ -80,6 +80,22 @@ namespace WebApplication1
             var adminPass = "Aa123456";
             var admin = userManager.FindByName(adminLogin);
 
+            if (!roleManager.RoleExists(RoleNames.ROLE_ADMINISTRATOR))
+            {
+                var roleresult = roleManager.Create(new IdentityRole(RoleNames.ROLE_ADMINISTRATOR));
+            }
+
+            if (!roleManager.RoleExists(RoleNames.ROLE_TRAINEE))
+
+            {
+                var roleresult = roleManager.Create(new IdentityRole(RoleNames.ROLE_TRAINEE));
+            }
+
+            if (!roleManager.RoleExists(RoleNames.ROLE_TRAINER))
+            {
+                var roleresult = roleManager.Create(new IdentityRole(RoleNames.ROLE_TRAINER));
+            }
+
             if (admin == null)
             {
                 admin = new ApplicationUser()
@@ -93,22 +109,6 @@ namespace WebApplication1
                 userManager.Create(admin, adminPass);
                 admin = userManager.FindByName(adminLogin);
                 userManager.AddToRole(admin.Id, RoleNames.ROLE_ADMINISTRATOR);
-            }
-        
-            if (!roleManager.RoleExists(RoleNames.ROLE_ADMINISTRATOR))        
-            {
-                var roleresult = roleManager.Create(new IdentityRole(RoleNames.ROLE_ADMINISTRATOR));
-            }
-        
-            if (!roleManager.RoleExists(RoleNames.ROLE_TRAINEE))
-        
-            {
-                var roleresult = roleManager.Create(new IdentityRole(RoleNames.ROLE_TRAINEE));
-            }
-        
-            if (!roleManager.RoleExists(RoleNames.ROLE_TRAINER))
-            {
-                var roleresult = roleManager.Create(new IdentityRole(RoleNames.ROLE_TRAINER)); 
             }
        
         }
