@@ -25,7 +25,17 @@ namespace WebApplication1.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var users = db.Users.ToList();
+            List<ApplicationUser> users;
+            if (TempData["search"] == null)
+            {
+                users = db.Users.ToList();
+            }
+            else
+            {
+                users = TempData["search"] as List<ApplicationUser>;
+                TempData["search"] = null;
+            }
+
             List<UserWithRoleViewModel> usersWithRoles = new List<UserWithRoleViewModel>(); 
             foreach(var usr in users)
             {
@@ -45,6 +55,24 @@ namespace WebApplication1.Controllers
             }
 
             return View(usersWithRoles);
+        }
+
+        //POST : Users
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(String userSearch)
+        {
+            if (userSearch == null)
+            {
+                TempData["search"] = new List<ApplicationUser>();
+            }
+            else
+            {
+                TempData["search"] = db.Users.Where(s => s.Name.Contains(userSearch)).Include(s => s.Classes).Include(s => s.Roles).ToList();
+                System.Diagnostics.Debug.WriteLine((TempData["search"] as List<ApplicationUser>).Count());
+            }
+
+            return RedirectToAction("Index");
         }
 
         // GET: Users/Details/5

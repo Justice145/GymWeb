@@ -8,9 +8,24 @@
 
 <h2>Index</h2>
 
+@using (Html.BeginForm())
+{
+     @Html.AntiForgeryToken()
+
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        Name: <input type="text" name="userSearch"><br/><br/>
+        <input type="submit" value="Search"><br/><br/>
+    </div>
+   
+}
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
 <table class="table">
     <tr>
         <th>
