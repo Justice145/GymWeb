@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -15,6 +16,7 @@ namespace WebApplication1.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public ManageController()
         {
@@ -73,7 +75,7 @@ namespace WebApplication1.Controllers
                 roleName = roles[0];
                 System.Diagnostics.Debug.WriteLine(roleName);
             }
-
+            
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
@@ -83,6 +85,36 @@ namespace WebApplication1.Controllers
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
                 Role = roleName
             };
+            return View(model);
+        }
+
+        public ActionResult Skills()
+        {
+            var userId = User.Identity.GetUserId();
+            var roles = UserManager.GetRoles(userId);
+            System.Diagnostics.Debug.WriteLine(roles.Count());
+
+            String roleName = "";
+            if (roles.Count() > 0)
+            {
+                roleName = roles[0];
+                System.Diagnostics.Debug.WriteLine(roleName);
+            }
+
+            List<NameAndCount> countPerClass = new List<NameAndCount>();
+
+            if (roleName == RoleNames.ROLE_TRAINEE)
+            {
+                float totalCount = db.Users.Where(x => x.Id == userId).FirstOrDefault().Classes.Count();
+                countPerClass = db.Users.Where(x => x.Id == userId).FirstOrDefault().Classes.GroupBy(z => z.Name).Select(z => new NameAndCount { Name = z.FirstOrDefault().Name, Count = z.Count() / totalCount }).ToList();
+            }
+
+            var model = new SkillsViewModel
+            {
+                Role = roleName,
+                CountPerClass = countPerClass
+            };
+
             return View(model);
         }
 

@@ -1,0 +1,63 @@
+﻿@model WebApplication1.Models.SkillsViewModel
+@{
+    ViewBag.Title = "Skills";
+}
+
+<link rel="stylesheet" type="text/css" href="~/d3js/radar-chart.css">
+
+<h2>Skills</h2>
+@if (Model.CountPerClass.Count() >= 3)
+{
+    <h1>Your class skills</h1>
+    <div id="chart-container"></div>
+}
+else
+{
+    <h4>You still didn't register to enough classes to see your skills..</h4>
+}
+@Html.ActionLink("Back to personal zone", "Index")
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/d3js/d3.min.js"></script>
+    <script src="~/d3js/radar-chart.js"></script>
+    <script>
+    </script>
+    @if (Model.CountPerClass.Count() > 0)
+    {
+
+        <script>
+
+            var data = [[]]
+            var chart = RadarChart.chart();
+
+            animate(divVal, 600);
+
+            @foreach (var ClassName in Model.CountPerClass)
+            {
+              @: var v = { axis: "@ClassName.Name", value: "@ClassName.Count"};
+                @:data[0].push(v);
+            }
+
+            RadarChart.defaultConfig.radius = 3;
+            RadarChart.defaultConfig.w = 600;
+            RadarChart.defaultConfig.h = 600;
+            RadarChart.draw("#chart-container", data);
+            function animate(elem, time) {
+                if (!elem) return;
+                var to = elem.offsetTop;
+                var from = window.scrollY;
+                var start = new Date().getTime(),
+                    timer = setInterval(function () {
+                        var step = Math.min(1, (new Date().getTime() - start) / time);
+                        window.scrollTo(0, (from + step * (to - from)) + 1);
+                        if (step == 1) { clearInterval(timer); };
+                    }, 25);
+                window.scrollTo(0, (from + 1));
+            }
+            var divVal = document.getElementById('chart-container');
+
+        </script>
+    }
+}

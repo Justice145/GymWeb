@@ -16,6 +16,13 @@ namespace WebApplication1.Models
         public string Role { get; set; }
     }
 
+    public class SkillsViewModel
+    {
+        public string Role { get; set; }
+        public List<NameAndCount> CountPerClass { get; set; }
+    }
+
+
     public class ManageLoginsViewModel
     {
         public IList<UserLoginInfo> CurrentLogins { get; set; }
