@@ -39,7 +39,15 @@ namespace WebApplication1.Controllers
         {
             var branches = db.Branches.ToList();
             var classes = db.Classes.ToList();
-            List<String> classNames = new List<String>();
+            var trainerRoleQuery = from role in db.Roles
+                              where role.Name == RoleNames.ROLE_TRAINER
+                              select role;
+
+            var trainerRole = trainerRoleQuery.FirstOrDefault();
+
+            var trainers = db.Users.Where(x => x.Roles.Count() > 0 && x.Roles.Any(y => y.RoleId == trainerRole.Id)).ToList();
+
+            List < String > classNames = new List<String>();
 
             foreach(var gymClass in classes)
             {
@@ -57,15 +65,15 @@ namespace WebApplication1.Controllers
                     classNames.Add(gymClass.Name);
             }
             
-            return View(new ClassSearchViewModel() { Branches = branches, ClassNames = classNames });
+            return View(new ClassSearchViewModel() { Branches = branches, ClassNames = classNames, Trainers = trainers});
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Search (int [] branchIds, String [] classNames)
+        public ActionResult Search (int [] branchIds, String [] classNames, String [] trainersId)
         {
-            System.Diagnostics.Debug.WriteLine("hey");
-            if (branchIds == null || classNames == null)
+            System.Diagnostics.Debug.WriteLine(trainersId[0]);
+            if (branchIds == null || classNames == null || trainersId == null)
             {
                 TempData["Search"] = new List<Class>();
             }
@@ -75,13 +83,17 @@ namespace WebApplication1.Controllers
                                        join p in branchIds on cls.BranchId equals p
                                        select cls;
 
-                var matchingByClassNames = from cls in matchingByBranch
+                var matchingByClassName = from cls in matchingByBranch
                                            join p in classNames on cls.Name equals p
-                                           select cls;
+                                            select cls;
 
-                var all = matchingByClassNames.Include(u => u.Trainer).Include(u => u.Branch).ToList();
+                var matchingByTrainerId = from cls in matchingByClassName
+                                          join p in trainersId on cls.TrainerID equals p
+                                          select cls;
 
-                TempData["search"] = all;
+                var matching = matchingByTrainerId.Include(u => u.Trainer).Include(u => u.Branch).ToList();
+
+                TempData["search"] = matching;
             }
             return Json(new { result = "Redirect", url = Url.Action("Index", "Classes") });
         }
