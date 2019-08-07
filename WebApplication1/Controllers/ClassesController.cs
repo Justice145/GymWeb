@@ -22,7 +22,6 @@ namespace WebApplication1.Controllers
             if (TempData["search"] == null)
             {
                 classes = db.Classes.Include(a => a.Branch).Include(a => a.Trainer).ToList();
-                
             }
             else
             {
@@ -123,7 +122,8 @@ namespace WebApplication1.Controllers
             }
             else if (System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR))
             {
-               ViewBag.TrainerID = new SelectList(db.Users, "Id", "UserName");
+               var role = db.Roles.Where(x => x.Name == RoleNames.ROLE_TRAINER).SingleOrDefault();
+               ViewBag.TrainerID = new SelectList(db.Users.Where(x => x.Roles.Any(r => r.RoleId == role.Id)), "Id", "Name");
             }
             else
             {
