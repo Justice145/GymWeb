@@ -75,7 +75,20 @@ namespace WebApplication1.Controllers
                 roleName = roles[0];
                 System.Diagnostics.Debug.WriteLine(roleName);
             }
+
+            List<String> suggestedClasses = new List<String>();
+
+            if (roleName.Equals(RoleNames.ROLE_TRAINEE))
+            {
+                GetSuggestedClasses(ref suggestedClasses);
+            }
+
+            foreach (var cls in suggestedClasses)
+            {
+                System.Diagnostics.Debug.WriteLine(cls);
+            }
             
+
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
@@ -83,9 +96,78 @@ namespace WebApplication1.Controllers
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
-                Role = roleName
+                Role = roleName,
+                SuggestedClasses = suggestedClasses
             };
             return View(model);
+        }
+
+        private void GetSuggestedClasses(ref List<String> suggestedClasses)
+        {
+            var userId = User.Identity.GetUserId();
+            var user = db.Users.Find(userId);
+            
+            //No data
+            if (user.Classes.Count() == 0)
+            {
+                AppendMostLikedClasses(ref suggestedClasses, 3);
+                return;
+            }
+
+            var mostLikedClass = (from cls in user.Classes
+                                  group cls by cls.Name into groupedClasses
+                                  orderby groupedClasses.Key descending
+                                  select groupedClasses.Key).Take(1).FirstOrDefault();
+
+            var classesOfUsersWhoLikedItToo = from usr in db.Users
+                                     where usr.Classes.Any(x => x.Name == mostLikedClass)
+                                     select usr.Classes;
+
+            var topThreeLikedClassesOfTheseUsers = (from cls in classesOfUsersWhoLikedItToo.SelectMany(x => x).ToList()
+                                                    group cls by cls.Name into groupedClasses
+                                                    orderby groupedClasses.Key descending
+                                                    select groupedClasses.Key).Take(3).ToList();
+            
+            //Not enough suggested classes, just add most liked classes to fill it.
+            if (topThreeLikedClassesOfTheseUsers.Count() < 3)
+            {
+                AppendMostLikedClasses(ref suggestedClasses, 3 - topThreeLikedClassesOfTheseUsers.Count());
+            }
+            
+            foreach (var suggestedClass in topThreeLikedClassesOfTheseUsers)
+            {
+                suggestedClasses.Add(suggestedClass);
+            }
+        }
+
+        private void AppendMostLikedClasses(ref List<String> suggestedClasses, int appendNumRequested)
+        {
+            var userClasses = from usr in db.Users
+                              select usr.Classes;
+
+            var orderedLikedClasses = (from cls in userClasses.SelectMany(x => x).ToList()
+                                      group cls by cls.Name into groupedClasses
+                                      orderby groupedClasses.Key descending
+                                      select groupedClasses.Key).ToList();
+
+            if (orderedLikedClasses.Count() < appendNumRequested)
+            {
+                appendNumRequested = orderedLikedClasses.Count();
+            }
+
+            int i = 0; 
+
+            foreach (var cls in orderedLikedClasses)
+            {
+                if (i == appendNumRequested)
+                {
+                    return;
+                }
+
+                suggestedClasses.Add(cls);
+                i++;
+            }
+            
         }
 
         public ActionResult Skills()
