@@ -203,6 +203,7 @@
     <Compile Include="Models\BranchSearchViewModel.cs" />
     <Compile Include="Models\Class.cs" />
     <Compile Include="Models\ClassSearchViewModel.cs" />
+    <Compile Include="Models\HomeGraphs.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RegisterToClassViewModel.cs" />
@@ -215,6 +216,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="d3js\d3.js" />
+    <Content Include="d3js\d3.min.js" />
+    <Content Include="d3js\radar-chart.css" />
+    <Content Include="d3js\radar-chart.js" />
     <Content Include="datetimepicker\build\jquery.datetimepicker.full.js" />
     <Content Include="datetimepicker\build\jquery.datetimepicker.full.min.js" />
     <Content Include="datetimepicker\build\jquery.datetimepicker.min.css" />
