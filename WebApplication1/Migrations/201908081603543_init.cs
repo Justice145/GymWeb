@@ -3,7 +3,7 @@ namespace WebApplication1.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Init : DbMigration
+    public partial class init : DbMigration
     {
         public override void Up()
         {
@@ -30,18 +30,17 @@ namespace WebApplication1.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(),
                         Time = c.DateTime(nullable: false),
-                        TrainerID = c.Int(nullable: false),
+                        TrainerID = c.String(maxLength: 128),
                         BranchId = c.Int(nullable: false),
                         ApplicationUser_Id = c.String(maxLength: 128),
-                        Trainer_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Branches", t => t.BranchId, cascadeDelete: true)
                 .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.Trainer_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.TrainerID)
+                .Index(t => t.TrainerID)
                 .Index(t => t.BranchId)
-                .Index(t => t.ApplicationUser_Id)
-                .Index(t => t.Trainer_Id);
+                .Index(t => t.ApplicationUser_Id);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -49,6 +48,7 @@ namespace WebApplication1.Migrations
                     {
                         Id = c.String(nullable: false, maxLength: 128),
                         Address = c.String(),
+                        Name = c.String(),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -120,7 +120,7 @@ namespace WebApplication1.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Classes", "Trainer_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Classes", "TrainerID", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUsers", "Class_Id", "dbo.Classes");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
@@ -134,9 +134,9 @@ namespace WebApplication1.Migrations
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", new[] { "Class_Id" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.Classes", new[] { "Trainer_Id" });
             DropIndex("dbo.Classes", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.Classes", new[] { "BranchId" });
+            DropIndex("dbo.Classes", new[] { "TrainerID" });
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");

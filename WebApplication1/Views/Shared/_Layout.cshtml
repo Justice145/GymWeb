@@ -56,7 +56,7 @@
                                 <label for="drop-2" class="toggle toogle-2">
                                     Dropdown <span class="fa fa-angle-down" aria-hidden="true"></span>
                                 </label>
-                                <a href="#" class="active">Dropdown <span class="fa fa-angle-down" aria-hidden="true"></span></a>
+                                <a href="#" class="active">Users Info <span class="fa fa-angle-down" aria-hidden="true"></span></a>
                                 <input type="checkbox" id="drop-2" />
                                 <ul>
                                     <li><a href="index.html" class="drop-text">Services</a></li>
@@ -65,6 +65,8 @@
                                     <li><a href="about.html" class="drop-text">What We do</a></li>
                                     <li><a href="about.html" class="drop-text">Testimonials</a></li>
                                     <li>@Html.ActionLink("Branches", "Index", "Branches")</li>
+                                    <li>@Html.ActionLink("Users", "Index", "Users")</li>
+                                    <li>@Html.ActionLink("Classes", "Index", "Classes")</li>
                                 </ul>
                             </li>
                             <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
@@ -77,12 +79,17 @@
     </header>
 
     <div>
+        <div class="main-top" id="home">
+            <!-- header -->
+            <!-- //header -->
+        </div>
         @RenderBody()
+        <a href="#home" class="move-top text-center"></a>
         <footer>
 
             <div class="cpy-right text-center py-3 navbar-fixed-bottom">
                 <p>
-                    &copy; @DateTime.Now.Year - SuperFit. All rights reserved 
+                    &copy; @DateTime.Now.Year - SuperFit. All rights reserved
                 </p>
             </div>
         </footer>

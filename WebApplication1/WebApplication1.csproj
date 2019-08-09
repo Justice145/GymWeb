@@ -185,17 +185,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201907221715130_Init.cs" />
-    <Compile Include="Migrations\201907221715130_Init.Designer.cs">
-      <DependentUpon>201907221715130_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907221740382_ChangeToStringID.cs" />
-    <Compile Include="Migrations\201907221740382_ChangeToStringID.Designer.cs">
-      <DependentUpon>201907221740382_ChangeToStringID.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907251950462_FixUsers.cs" />
-    <Compile Include="Migrations\201907251950462_FixUsers.Designer.cs">
-      <DependentUpon>201907251950462_FixUsers.cs</DependentUpon>
+    <Compile Include="Migrations\201908081603543_init.cs" />
+    <Compile Include="Migrations\201908081603543_init.Designer.cs">
+      <DependentUpon>201908081603543_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -370,14 +362,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201907221715130_Init.resx">
-      <DependentUpon>201907221715130_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907221740382_ChangeToStringID.resx">
-      <DependentUpon>201907221740382_ChangeToStringID.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907251950462_FixUsers.resx">
-      <DependentUpon>201907251950462_FixUsers.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201908081603543_init.resx">
+      <DependentUpon>201908081603543_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
