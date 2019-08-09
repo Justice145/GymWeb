@@ -6,9 +6,12 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (ViewBag.displayMenu == "Yes")
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
 <table class="table">
     <tr>
         <th>
@@ -48,9 +51,12 @@
                 @Html.DisplayFor(modelItem => item.SaturdayOpen) - @Html.DisplayFor(modelItem => item.SaturdayClose)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) | 
+                @if (ViewBag.displayMenu == "Yes")
+                {
+                    @Html.ActionLink("Edit | ", "Edit", new { id = item.Id })
+                    @Html.ActionLink(" Delete", "Delete", new { id = item.Id })
+                }
             </td>
         </tr>
     }

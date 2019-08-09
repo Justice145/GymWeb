@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -17,6 +19,25 @@ namespace WebApplication1
         // GET: Branches
         public ActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = User.Identity;
+                ViewBag.Name = user.Name;
+
+                ViewBag.displayMenu = "No";
+
+                if (isAdminUser())
+                {
+                    ViewBag.displayMenu = "Yes";
+                }
+            }
+            else
+            {
+                ViewBag.Name = "Not Logged IN";
+            }
+
+
+
             List<Branch> branches;
             if (TempData["search"] == null)
             {
@@ -51,7 +72,7 @@ namespace WebApplication1
         {
             if (!System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Home");
             }
 
             return View();
@@ -237,6 +258,11 @@ namespace WebApplication1
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private Boolean isAdminUser()
+        {
+            return System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR);
         }
     }
 }
