@@ -83,7 +83,8 @@ namespace WebApplication1.Controllers
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
-                Role = roleName
+                Role = roleName,
+                UserId = userId
             };
             return View(model);
         }

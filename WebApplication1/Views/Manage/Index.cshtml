@@ -14,7 +14,6 @@
     <dl class="dl-horizontal">
         <dt>Password:</dt>
         <dd>
-            [
             @if (Model.HasPassword)
             {
                 @Html.ActionLink("Change your password", "ChangePassword")
@@ -23,7 +22,13 @@
             {
                 @Html.ActionLink("Create", "SetPassword")
             }
-            ]
+        </dd>
+    </dl>
+    <dl class="dl-horizontal">
+        <dt>Account:</dt>
+        <dd>
+            @Html.ActionLink("Edit your account", "Edit", new { Controller = "Users", Action = "Edit",  id = Model.UserId })
+
         </dd>
     </dl>
     @if (Model.Role.Equals("Trainee"))
