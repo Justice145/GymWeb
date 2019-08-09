@@ -18,6 +18,24 @@ namespace WebApplication1.Controllers
         // GET: Classes
         public ActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = User.Identity;
+                ViewBag.Name = user.Name;
+
+                ViewBag.displayMenu = "No";
+
+                if (isAdminUser())
+                {
+                    ViewBag.displayMenu = "Yes";
+                }
+            }
+            else
+            {
+                ViewBag.Name = "Not Logged IN";
+            }
+
+
             List<Class> classes;
             if (TempData["search"] == null)
             {
@@ -220,6 +238,11 @@ namespace WebApplication1.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private Boolean isAdminUser()
+        {
+            return System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR);
         }
     }
 }
