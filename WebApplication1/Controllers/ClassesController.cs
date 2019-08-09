@@ -22,6 +22,7 @@ namespace WebApplication1.Controllers
             {
                 var user = User.Identity;
                 ViewBag.Name = user.Name;
+                ViewBag.UserID = user.GetUserId();
 
                 ViewBag.displayMenu = "No";
 
