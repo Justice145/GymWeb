@@ -177,13 +177,13 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Email,Name,Address,PhoneNumber,UserType")] ApplicationUser user, String Role)
+        public ActionResult Edit([Bind(Include = "Id,Email,Name,Address,PhoneNumber")] ApplicationUser user, String Role)
         {
             List<String> allRoles = new List<String>();
             allRoles.Add(RoleNames.ROLE_ADMINISTRATOR);
             allRoles.Add(RoleNames.ROLE_TRAINEE);
             allRoles.Add(RoleNames.ROLE_TRAINER);
-            
+
             if (!System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR))
             {
                 if (!(User.Identity.GetUserId().Equals(user.Id)))
@@ -193,7 +193,7 @@ namespace WebApplication1.Controllers
             }
 
             bool validRole = false;
-            foreach(var role in allRoles)
+            foreach (var role in allRoles)
             {
                 if (Role.Equals(role))
                 {
@@ -208,28 +208,35 @@ namespace WebApplication1.Controllers
 
             if (ModelState.IsValid)
             {
-                user.UserName = user.Email;
-                db.Entry(user).State = EntityState.Modified;
+                ApplicationUser usr = db.Users.Find(user.Id);
+                usr.UserName = user.Email;
+                usr.Email = user.Email;
+                usr.Address = user.Address;
+                usr.PhoneNumber = user.PhoneNumber;
+         
                 var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
-                IList<String> currRoles = manager.GetRoles(user.Id);
+                IList<String> currRoles = manager.GetRoles(usr.Id);
                 
-                foreach(var roleName in currRoles)
+                foreach (var roleName in currRoles)
                 {
-                    foreach(var roleToRemove in allRoles)
+                    foreach (var roleToRemove in allRoles)
                     {
                         if (roleName.Equals(roleToRemove))
                         {
-                            manager.RemoveFromRoles(user.Id, roleToRemove);
+                            manager.RemoveFromRole(usr.Id, roleToRemove);
                         }
                     }
                 }
 
-                manager.AddToRole(user.Id, Role);
+                manager.AddToRole(usr.Id, Role);
+
+                db.Entry(usr).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(user);
         }
+
 
         // GET: Users/Delete/5
         public ActionResult Delete(string id)
@@ -349,6 +356,7 @@ namespace WebApplication1.Controllers
             }
 
             db.Entry(userToRegister).State = EntityState.Modified;
+            db.Entry(requestedClass).State = EntityState.Modified;
             db.SaveChanges();
 
             if (returnToDetails)

@@ -88,31 +88,43 @@ namespace WebApplication1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Search (int [] branchIds, String [] classNames, String [] trainersId)
+        public ActionResult Search (int [] branchIds, String [] classNames, String [] trainersId, String specificClass)
         {
-            System.Diagnostics.Debug.WriteLine(trainersId[0]);
-            if (branchIds == null || classNames == null || trainersId == null)
+            if (specificClass != null)
             {
-                TempData["Search"] = new List<Class>();
-            }
-            else
-            {
-                var matchingByBranch = from cls in db.Classes
-                                       join p in branchIds on cls.BranchId equals p
-                                       select cls;
-
-                var matchingByClassName = from cls in matchingByBranch
-                                           join p in classNames on cls.Name equals p
-                                            select cls;
-
-                var matchingByTrainerId = from cls in matchingByClassName
-                                          join p in trainersId on cls.TrainerID equals p
+                var found = from cls in db.Classes
+                                          where cls.Name.Equals(specificClass)
                                           select cls;
 
-                var matching = matchingByTrainerId.Include(u => u.Trainer).Include(u => u.Branch).ToList();
+                var foundmatch = found.Include(u => u.Trainer).Include(u => u.Branch).ToList();
 
-                TempData["search"] = matching;
+                TempData["search"] = foundmatch;
+
+                return RedirectToAction("Index");
             }
+
+            if (branchIds == null || classNames == null || trainersId == null)
+            {
+                System.Diagnostics.Debug.WriteLine("halu");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var matchingByBranch = from cls in db.Classes
+                                    join p in branchIds on cls.BranchId equals p
+                                    select cls;
+
+            var matchingByClassName = from cls in matchingByBranch
+                                        join p in classNames on cls.Name equals p
+                                        select cls;
+
+            var matchingByTrainerId = from cls in matchingByClassName
+                                        join p in trainersId on cls.TrainerID equals p
+                                        select cls;
+
+            var matching = matchingByTrainerId.Include(u => u.Trainer).Include(u => u.Branch).ToList();
+
+            TempData["search"] = matching;
+            
             return Json(new { result = "Redirect", url = Url.Action("Index", "Classes") });
         }
 

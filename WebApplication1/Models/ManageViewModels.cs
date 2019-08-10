@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
@@ -12,10 +13,9 @@ namespace WebApplication1.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
-
         public string Role { get; set; }
-
         public string UserId { get; set; }
+        public List<String> SuggestedClasses {get;set;}
     }
 
     public class SkillsViewModel

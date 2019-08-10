@@ -186,17 +186,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201907221715130_Init.cs" />
-    <Compile Include="Migrations\201907221715130_Init.Designer.cs">
-      <DependentUpon>201907221715130_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907221740382_ChangeToStringID.cs" />
-    <Compile Include="Migrations\201907221740382_ChangeToStringID.Designer.cs">
-      <DependentUpon>201907221740382_ChangeToStringID.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907251950462_FixUsers.cs" />
-    <Compile Include="Migrations\201907251950462_FixUsers.Designer.cs">
-      <DependentUpon>201907251950462_FixUsers.cs</DependentUpon>
+    <Compile Include="Migrations\201908021454088_Init.cs" />
+    <Compile Include="Migrations\201908021454088_Init.Designer.cs">
+      <DependentUpon>201908021454088_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -328,6 +320,7 @@
     <Content Include="Views\Classes\Index.cshtml" />
     <Content Include="Views\Classes\Search.cshtml" />
     <Content Include="Views\Branches\Search.cshtml" />
+    <Content Include="Views\Manage\Skills.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -346,14 +339,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201907221715130_Init.resx">
-      <DependentUpon>201907221715130_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907221740382_ChangeToStringID.resx">
-      <DependentUpon>201907221740382_ChangeToStringID.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907251950462_FixUsers.resx">
-      <DependentUpon>201907251950462_FixUsers.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201908021454088_Init.resx">
+      <DependentUpon>201908021454088_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

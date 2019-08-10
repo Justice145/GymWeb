@@ -41,5 +41,31 @@
     @if (Model.Role.Equals("Trainee"))
     {
         @Html.ActionLink("See your skills", "Skills")
+
+<div>
+    <h2>Classes that you might like</h2>
+    @if (Model.SuggestedClasses.Count() > 0)
+    {
+        <p>
+            According to other users who liked:
+        </p>
+        foreach (var modelItem in Model.SuggestedClasses)
+        {
+            <dd>
+                @using (Html.BeginForm("Search", "Classes"))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("specificClass", modelItem)
+                    <button type="submit" class="btn btn-default">Register to @modelItem classes</button>
+                }
+            </dd>
+        }
+    }
+    else
+    {
+        <p>
+            You still didn't register to enough classes to get recommendations. Sorry!
+        </p>
     }
 </div>
+    }
