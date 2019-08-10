@@ -253,27 +253,6 @@ namespace WebApplication1.Controllers
             base.Dispose(disposing);
         }
 
-        // GET: Classes/MyClasses
-        public ActionResult MyClasses()
-        {
-            string userName;
-            if (User.Identity.IsAuthenticated)
-            {
-                var user = User.Identity;
-                userName = user.Name;
-            }
-            else
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            List<Class> classes;
-
-            var allClasses = db.Classes.Include(a => a.Branch).Include(a => a.Trainer);
-            classes = allClasses.Where(a => a.Trainees.Any(n => n.UserName == userName)).ToList();
-            return View(classes);
-        }
-
         private Boolean isAdminUser()
         {
             return System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR);
