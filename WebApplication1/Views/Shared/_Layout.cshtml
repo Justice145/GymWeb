@@ -4,12 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-
+    @Styles.Render("~/Content/bootstrap.css")
+    @Styles.Render("~/Content/style.css")
+    @Styles.Render("~/Content/font-awesome.min.css")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <!--
+      <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -35,16 +36,69 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    -->
+    <header>
+        <div class="container-fluid">
+            <div class="header d-md-flex justify-content-between align-items-center py-3 px-xl-5 px-lg-3 px-2">
+                <!-- logo -->
+                <div id="logo">
+                    <h1><a class="" href="index.html">SuperFit</a></h1>
+                </div>
+                <!-- //logo -->
+                <!-- nav -->
+                <div class="nav_w3ls">
+                    <nav>
+                        <label for="drop" class="toggle">Menu</label>
+                        <input type="checkbox" id="drop" />
+                        <ul class="menu">
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li class="mx-lg-4 mx-md-3 my-md-0 my-2">@Html.ActionLink("About", "About", "Home")</li>
+                            <li><a href="gallery.html">Gallery</a></li>
+                            <li class="mx-lg-4 mx-md-3 my-md-0 my-2">
+                                <!-- First Tier Drop Down -->
+                                <label for="drop-2" class="toggle toogle-2">
+                                    Dropdown <span class="fa fa-angle-down" aria-hidden="true"></span>
+                                </label>
+                                <a href="#" class="active">Users Info <span class="fa fa-angle-down" aria-hidden="true"></span></a>
+                                <input type="checkbox" id="drop-2" />
+                                <ul>
+                                    <li><a href="index.html" class="drop-text">Services</a></li>
+                                    <li><a href="blog.html" class="drop-text">Blog</a></li>
+                                    <li><a href="single.html" class="drop-text">Blog Details</a></li>
+                                    <li><a href="about.html" class="drop-text">What We do</a></li>
+                                    <li><a href="about.html" class="drop-text">Testimonials</a></li>
+                                    <li>@Html.ActionLink("Branches", "Index", "Branches")</li>
+                                    <li>@Html.ActionLink("Users", "Index", "Users")</li>
+                                    <li>@Html.ActionLink("Classes", "Index", "Classes")</li>
+                                </ul>
+                            </li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- //nav -->
+            </div>
+        </div>
+    </header>
+
+    <div>
+        <div class="main-top" id="home">
+            <!-- header -->
+            <!-- //header -->
+        </div>
         @RenderBody()
-        <hr />
+        <a href="#home" class="move-top text-center"></a>
         <footer>
-            <p>&copy; @DateTime.Now.Year - SuperFit</p>
+
+            <div class="cpy-right text-center py-3 navbar-fixed-bottom">
+                <p>
+                    &copy; @DateTime.Now.Year - SuperFit. All rights reserved
+                </p>
+            </div>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/datetime")
     @RenderSection("scripts", required: false)
 </body>

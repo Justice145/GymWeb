@@ -1,0 +1,29 @@
+﻿.pb-5, .py-5 {
+    padding-bottom: 3rem !important;
+    padding-top: 3rem !important;
+}
+
+.mt-4, .my-4 {
+    margin-top: 1.5rem !important;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box; 
+}
+
+li.login {
+    position: absolute;
+    top: inherit;
+    right: 16px;
+    margin-right: 20px !important;
+}
+
+.footer2 {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #efefef;
+    text-align: center;
+}

@@ -205,14 +205,16 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="d3js\d3.js" />
     <Content Include="d3js\d3.min.js" />
     <Content Include="d3js\radar-chart.css" />
     <Content Include="d3js\radar-chart.js" />
+    <Content Include="Content\css_slider.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\ovveride.css" />
+    <Content Include="Content\style.css" />
     <Content Include="datetimepicker\build\jquery.datetimepicker.full.js" />
     <Content Include="datetimepicker\build\jquery.datetimepicker.full.min.js" />
     <Content Include="datetimepicker\build\jquery.datetimepicker.min.css" />
@@ -243,7 +245,41 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Images\1.jpg" />
+    <Content Include="Images\2.jpg" />
+    <Content Include="Images\3.jpg" />
+    <Content Include="Images\4.jpg" />
+    <Content Include="Images\ab.jpg" />
+    <Content Include="Images\about2.jpg" />
+    <Content Include="Images\b1.jpg" />
+    <Content Include="Images\b2.jpg" />
+    <Content Include="Images\bg.jpg" />
+    <Content Include="Images\blog1.jpg" />
+    <Content Include="Images\blog2.jpg" />
+    <Content Include="Images\blog3.jpg" />
+    <Content Include="Images\blog4.jpg" />
+    <Content Include="Images\g1.jpg" />
+    <Content Include="Images\g2.jpg" />
+    <Content Include="Images\g3.jpg" />
+    <Content Include="Images\g4.jpg" />
+    <Content Include="Images\g5.jpg" />
+    <Content Include="Images\g6.jpg" />
+    <Content Include="Images\g7.jpg" />
+    <Content Include="Images\g77.jpg" />
+    <Content Include="Images\g8.jpg" />
+    <Content Include="Images\g9.jpg" />
+    <Content Include="Images\move-top.png" />
+    <Content Include="Images\t1.jpg" />
+    <Content Include="Images\t2.jpg" />
+    <Content Include="Images\t3.jpg" />
+    <Content Include="Images\t4.jpg" />
+    <Content Include="Images\te1.jpg" />
+    <Content Include="Images\te2.jpg" />
+    <Content Include="Images\te3.jpg" />
+    <Content Include="Images\wh1.jpg" />
+    <Content Include="Images\wh2.jpg" />
+    <Content Include="Images\wh3.jpg" />
+    <Content Include="Images\wh4.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="datetimepicker\.travis.yml" />
@@ -321,6 +357,7 @@
     <Content Include="Views\Classes\Search.cshtml" />
     <Content Include="Views\Branches\Search.cshtml" />
     <Content Include="Views\Manage\Skills.cshtml" />
+    <Content Include="Views\Home\ViewPage1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -330,10 +367,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />

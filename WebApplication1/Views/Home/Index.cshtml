@@ -1,143 +1,272 @@
-﻿@model WebApplication1.Models.HomeGraphs
-
-@{
+﻿@{
     ViewBag.Title = "Home Page";
 }
+    <head>
+        <title>Befit Sports Category Bootstrap Responsive Website Template | Home :: W3layouts</title>
+        <!-- Meta tag Keywords -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8" />
+        <meta name="keywords" content="Befit Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+        <script>
+            addEventListener("load", function () {
+                setTimeout(hideURLbar, 0);
+            }, false);
 
-<div class="jumbotron">
-    <h1>Welcome to SuperFit</h1>
-    <p class="lead">The best & cheapest gym club.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Find a SuperFit gym near your location &raquo;</a></p>
-
-</div>
-
-<h2>Latest News Sports</h2>
-<hr />
-
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Link</th>
-            <th>Description</th>
-            <th>Publish Date</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (ViewBag.RSSFeed != null)
-        {
-            foreach (var item in ViewBag.RSSFeed)
-            {
-                <tr>
-                    <td>@item.Title</td>
-                    <td><a href="@item.Link">@item.Link</a></td>
-                    <td>@item.Description</td>
-                    <td>@item.PubDate</td>
-                </tr>
+            function hideURLbar() {
+                window.scrollTo(0, 1);
             }
-        }
-    </tbody>
-</table>
+        </script>
+        <!-- //Meta tag Keywords -->
+        <!-- Custom-Files -->
+        <link rel="stylesheet" href="~/Content/bootstrap.css">
 
+        <link rel="stylesheet" href="~/Content/css_slider.css">
+        <!-- Bootstrap-Core-CSS -->
+        <link rel="stylesheet" href="~/Content/style.css" type="text/css" media="all" />
+        <!-- Style-CSS -->
+        <link href="~/Content/font-awesome.min.css" rel="stylesheet">
+        <!-- Font-Awesome-Icons-CSS -->
+        <!-- //Custom-Files -->
+        <!-- Web-Fonts -->
+        <link href="//fonts.googleapis.com/css?family=Nunito+Sans:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;subset=latin-ext,vietnamese"
+              rel="stylesheet">
+        <link href="//fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese"
+              rel="stylesheet">
+        <!-- //Web-Fonts -->
+        <link rel="stylesheet" href="~/Content/ovveride.css">
+    </head>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>This can be your workout..</h2>
-        <video width="600" height="480" controls class="video-style">
-            <source src="../../videos/trailer_vid.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-</div>
-<h2> Classes count per branch</h2>
-<div class="col-md-4">
-    <div id="my_dataviz"></div>
-</div>
-<div class="column right">
-    <div class="row">
-        <a class="twitter-timeline" href="https://twitter.com/SuperfitClub?ref_src=twsrc%5Etfw">Tweets by SuperfitClub</a>
-        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <body>
+        <!-- //header -->
+        <div class="banner_w3lspvt">
+            <div class="csslider infinity" id="slider1">
+                <input type="radio" name="slides" checked="checked" id="slides_1" />
+                <input type="radio" name="slides" id="slides_2" />
+                <input type="radio" name="slides" id="slides_3" />
+                <input type="radio" name="slides" id="slides_4" />
+                <ul class="banner_slide_bg">
+                    <li>
+                        <div class="container">
+                            <div class="w3ls_banner_txt text-right ml-auto pr-xl-0 pr-sm-4 pr-5">
+                                <h3 class="w3ls_pvt-title text-wh text-uppercase let mb-2">Welcome Our SuperFit</h3>
+                                <p>
+                                    Sed ut perspiciatis unde omnis iste natus error sit <br>acntium doemque laudantium, totam
+                                    rem aperiam eaque ipsa <br>quae ab illo.
+                                </p>
+                                <a href="about.html" style="max-width: 150px;" class="btn button-style mt-sm-5 mt-4">Read More</a>
+                                <a href="contact.html" style="max-width: 150px;" class="btn button-style button-style-2 ml-2 mt-sm-5 mt-4">
+                                    Contact
+                                    Us
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="container">
+                            <div class="w3ls_banner_txt text-right ml-auto pr-xl-0 pr-sm-4 pr-5">
+                                <h3 class="w3ls_pvt-title text-wh text-uppercase let mb-2">Yoga & Meditation</h3>
+                                <p>
+                                    Sed ut perspiciatis unde omnis iste natus error sit <br>acntium doemque laudantium, totam
+                                    rem aperiam eaque ipsa <br>quae ab illo.
+                                </p>
+                                <a href="about.html" style="max-width: 150px;" class="btn button-style mt-sm-5 mt-4">Read More</a>
+                                <a href="contact.html" style="max-width: 150px;" class="btn button-style button-style-2 ml-2 mt-sm-5 mt-4">
+                                    Contact
+                                    Us
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="container">
+                            <div class="w3ls_banner_txt pl-xl-0 pl-sm-4 pl-5">
+                                <h3 class="w3ls_pvt-title text-wh text-uppercase let mb-2">Your Health Coach</h3>
+                                <p>
+                                    Sed ut perspiciatis unde omnis iste natus error sit <br>acntium doemque laudantium, totam
+                                    rem aperiam eaque ipsa <br>quae ab illo.
+                                </p>
+                                <a href="about.html" style="max-width: 150px;" class="btn button-style mt-sm-5 mt-4">Read More</a>
+                                <a href="contact.html" style="max-width: 150px;" class="btn button-style button-style-2 ml-2 mt-sm-5 mt-4">
+                                    Contact
+                                    Us
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="container">
+                            <div class="w3ls_banner_txt pl-xl-0 pl-sm-4 pl-5">
+                                <h3 class="w3ls_pvt-title text-wh text-uppercase let mb-2">Health & Strength</h3>
+                                <p>
+                                    Sed ut perspiciatis unde omnis iste natus error sit <br>acntium doemque laudantium, totam
+                                    rem aperiam eaque ipsa <br>quae ab illo.
+                                </p>
+                                <a href="about.html" style="max-width: 150px;" class="btn button-style mt-sm-5 mt-4">Read More</a>
+                                <a href="contact.html" style="max-width: 150px;" class="btn button-style button-style-2 ml-2 mt-sm-5 mt-4">
+                                    Contact
+                                    Us
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="arrows">
+                    <label for="slides_1"></label>
+                    <label for="slides_2"></label>
+                    <label for="slides_3"></label>
+                    <label for="slides_4"></label>
+                </div>
+                <div class="navigation">
+                    <div>
+                        <label for="slides_1"></label>
+                        <label for="slides_2"></label>
+                        <label for="slides_3"></label>
+                        <label for="slides_4"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //banner -->
+        </div>
 
-        <a href="https://twitter.com/SuperFitClub?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow SuperFitClub</a>
-        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        <!-- about -->
+        <div class="what py-5">
+            <div class="container py-xl-5 py-lg-3">
+                <h3 class="title-w3 mb-sm-4 mb-3 text-bl text-center font-weight-bold">Welcome to Our Website</h3>
+                <p class="mx-auto wstyles text-center mb-sm-5 mb-4">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                    eiusmod tempor incididunt ut labore et dolore
+                    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat.
+                </p>
+                <div class="img-fluid">
+                    <div class="col-md-4">
+                        <video width="600" height="480" controls class="video-style">
+                            <source src="../../videos/trailer_vid.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //about -->
 
-        <a href="https://twitter.com/intent/tweet?screen_name=SuperFitClub&ref_src=twsrc%5Etfw" class="twitter-mention-button" data-show-count="false">Tweet to SuperFitClub</a>
-        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-    </div>
+		<h2> Classes count per branch</h2>
+		<div class="col-md-4">
+		    <div id="my_dataviz"></div>
+		</div>
 
-    <div class="column center-block">
+		<h2>Latest News Sports</h2>
+		<hr />
 
-    </div>
-</div>
+		<table class="table table-hover">
+		    <thead>
+		        <tr>
+		            <th>Title</th>
+		            <th>Link</th>
+		            <th>Description</th>
+		            <th>Publish Date</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		        @if (ViewBag.RSSFeed != null)
+		        {
+		            foreach (var item in ViewBag.RSSFeed)
+		            {
+		                <tr>
+		                    <td>@item.Title</td>
+		                    <td><a href="@item.Link">@item.Link</a></td>
+		                    <td>@item.Description</td>
+		                    <td>@item.PubDate</td>
+		                </tr>
+		            }
+		        }
+		    </tbody>
+		</table>
 
+        <div class="column right">
+            <div class="row">
+                <a class="twitter-timeline" href="https://twitter.com/SuperfitClub?ref_src=twsrc%5Etfw">Tweets by SuperfitClub</a>
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+                <a href="https://twitter.com/SuperFitClub?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow SuperFitClub</a>
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-<script src="https://d3js.org/d3-array.v2.min.js"></script>
-<script src="https://d3js.org/d3-color.v1.min.js"></script>
-<script src="https://d3js.org/d3-format.v1.min.js"></script>
-<script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
-<script src="https://d3js.org/d3-time.v1.min.js"></script>
-<script src="https://d3js.org/d3-time-format.v2.min.js"></script>
-<script src="https://d3js.org/d3-scale.v3.min.js"></script>
-<script src="https://d3js.org/d3.v4.js"></script>
-</script>
-<style>
-</style>
-<script>
-    // set the dimensions and margins of the graph
-    var margin = { top: 30, right: 30, bottom: 150, left: 60 },
-        width = 460 - margin.left - margin.right,
-        height = 450 - margin.top - margin.bottom;
+                <a href="https://twitter.com/intent/tweet?screen_name=SuperFitClub&ref_src=twsrc%5Etfw" class="twitter-mention-button" data-show-count="false">Tweet to SuperFitClub</a>
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
 
-    // append the svg object to the body of the page
-    var svg = d3.select("#my_dataviz")
-        .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform",
-            "translate(" + margin.left + "," + margin.top + ")");
+            <div class="column center-block">
 
-    data = []
-    @foreach (var branchData in Model.ClassesPerBranch)
-    {
-        @:data.push({ Branch: "@branchData.Name", Classes: @branchData.Count });
-    }
+            </div>
+    </body>
 
-    // sort data
-    data.sort(function (b, a) {
-        return a.Value - b.Value;
-    });
+    <script src="https://d3js.org/d3-array.v2.min.js"></script>
+	<script src="https://d3js.org/d3-color.v1.min.js"></script>
+	<script src="https://d3js.org/d3-format.v1.min.js"></script>
+	<script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+	<script src="https://d3js.org/d3-time.v1.min.js"></script>
+	<script src="https://d3js.org/d3-time-format.v2.min.js"></script>
+	<script src="https://d3js.org/d3-scale.v3.min.js"></script>
+	<script src="https://d3js.org/d3.v4.js"></script>
+	</script>
+	<style>
+	</style>
+	<script>
+	    // set the dimensions and margins of the graph
+	    var margin = { top: 30, right: 30, bottom: 150, left: 60 },
+	        width = 460 - margin.left - margin.right,
+	        height = 450 - margin.top - margin.bottom;
 
-        // X axis
-        var x = d3.scaleBand()
-            .range([0, width])
-            .domain(data.map(function (d) { return d.Branch; }))
-            .padding(0.2);
-        svg.append("g")
-            .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x))
-            .selectAll("text")
-            .attr("transform", "translate(-10,0)rotate(-45)")
-            .style("text-anchor", "end")
-            .attr("font-size", 15)
+	    // append the svg object to the body of the page
+	    var svg = d3.select("#my_dataviz")
+	        .append("svg")
+	        .attr("width", width + margin.left + margin.right)
+	        .attr("height", height + margin.top + margin.bottom)
+	        .append("g")
+	        .attr("transform",
+	            "translate(" + margin.left + "," + margin.top + ")");
 
-        // Add Y axis
-        var y = d3.scaleLinear()
-            .domain([0, 25])
-            .range([height, 0]);
-        svg.append("g")
-            .call(d3.axisLeft(y));
+	    data = []
+	    @foreach (var branchData in Model.ClassesPerBranch)
+	    {
+	        @:data.push({ Branch: "@branchData.Name", Classes: @branchData.Count });
+	    }
 
-        // Bars
-        svg.selectAll("mybar")
-            .data(data)
-            .enter()
-            .append("rect")
-            .attr("x", function (d) { return x(d.Branch); })
-            .attr("y", function (d) { return y(d.Classes); })
-            .attr("width", x.bandwidth())
-            .attr("height", function (d) { return height - y(d.Classes); })
-            .attr("fill", "#69b3a2")
+	    // sort data
+	    data.sort(function (b, a) {
+	        return a.Value - b.Value;
+	    });
 
-</script>
+	        // X axis
+	        var x = d3.scaleBand()
+	            .range([0, width])
+	            .domain(data.map(function (d) { return d.Branch; }))
+	            .padding(0.2);
+	        svg.append("g")
+	            .attr("transform", "translate(0," + height + ")")
+	            .call(d3.axisBottom(x))
+	            .selectAll("text")
+	            .attr("transform", "translate(-10,0)rotate(-45)")
+	            .style("text-anchor", "end")
+	            .attr("font-size", 15)
+
+	        // Add Y axis
+	        var y = d3.scaleLinear()
+	            .domain([0, 25])
+	            .range([height, 0]);
+	        svg.append("g")
+	            .call(d3.axisLeft(y));
+
+	        // Bars
+	        svg.selectAll("mybar")
+	            .data(data)
+	            .enter()
+	            .append("rect")
+	            .attr("x", function (d) { return x(d.Branch); })
+	            .attr("y", function (d) { return y(d.Classes); })
+	            .attr("width", x.bandwidth())
+	            .attr("height", function (d) { return height - y(d.Classes); })
+	            .attr("fill", "#69b3a2")
+
+	</script>

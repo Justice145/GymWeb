@@ -6,78 +6,136 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+    <head>
+        <title>Befit Sports Category Bootstrap Responsive Website Template | Contact Us :: W3layouts</title>
+        <!-- Meta tag Keywords -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8" />
+        <meta name="keywords" content="Befit Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+        <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
 
-@using (Html.BeginForm())
-{
-     @Html.AntiForgeryToken()
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+        </script>
+        <!-- //Meta tag Keywords -->
+        <!-- Custom-Files -->
+        <link rel="stylesheet" href="~/Content/bootstrap.css">
+        <!-- Bootstrap-Core-CSS -->
+        <link rel="stylesheet" href="~/Content/style.css" type="text/css" media="all" />
+        <!-- Style-CSS -->
+        <link href="~/Content/font-awesome.min.css" rel="stylesheet">
+        <!-- Font-Awesome-Icons-CSS -->
+        <!-- //Custom-Files -->
+        <!-- Web-Fonts -->
+        <link href="//fonts.googleapis.com/css?family=Nunito+Sans:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;subset=latin-ext,vietnamese"
+              rel="stylesheet">
+        <link href="//fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese"
+              rel="stylesheet">
+        <!-- //Web-Fonts -->
+        <link rel="stylesheet" href="~/Content/ovveride.css">
+    </head>
 
 
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        Name: <input type="text" name="userSearch"><br/><br/>
-        <input type="submit" value="Search"><br/><br/>
-    </div>
-   
-}
+    <body>
+        <!-- main banner -->
+        <div class="main-top" id="home">
+            <!-- header -->
+            <!-- //header -->
+            <!-- banner -->
+            <div class="banner_w3lspvt-2">
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+            </div>
+            <!-- //banner -->
+        </div>
+        <!-- //main banner -->
+        <!-- page details -->
+        <div class="breadcrumb-agile">
+            <ol class="breadcrumb">
+                <li class="login" aria-current="page">@Html.Partial("_LoginPartial")</li>
+                <li class="breadcrumb-item">
+                    @Html.ActionLink("Home", "Index", "Home")
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">User info</li>
+                <li class="breadcrumb-item active" aria-current="page">Users</li>
+            </ol>
+        </div>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </th>
-        <td>
-            <b>Role</b>
-        </td>
-        <th></th>
-    </tr>
+	@using (Html.BeginForm())
+	{
+	     @Html.AntiForgeryToken()
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @if (item.RoleNames.Count() > 0)
-                {
-                    @Html.DisplayFor(modelItem => item.RoleNames[0])
-                }
-                else
-                {
-                    <p> No Roles Assigned</p>
-                }
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
-                @Html.ActionLink("Register to class", "RegisterToClass", new { id = item.Id })
-            </td>
-        </tr>
-    }
 
-</table>
+	    <div class="form-horizontal">
+	        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+	        Name: <input type="text" name="userSearch"><br/><br/>
+	        <input type="submit" value="Search"><br/><br/>
+	    </div>
+	   
+	}
+
+	<p>
+	    @Html.ActionLink("Create New", "Create")
+	</p>
+
+	<table class="table">
+	    <tr>
+	        <th>
+	            @Html.DisplayNameFor(model => model.Email)
+	        </th>
+	        <th>
+	            @Html.DisplayNameFor(model => model.Name)
+	        </th>
+	        <th>
+	            @Html.DisplayNameFor(model => model.Address)
+	        </th>
+	        <th>
+	            @Html.DisplayNameFor(model => model.PhoneNumber)
+	        </th>
+	        <td>
+	            <b>Role</b>
+	        </td>
+	        <th></th>
+	    </tr>
+
+	    @foreach (var item in Model)
+	    {
+	        <tr>
+	            <td>
+	                @Html.DisplayFor(modelItem => item.Email)
+	            </td>
+	            <td>
+	                @Html.DisplayFor(modelItem => item.Name)
+	            </td>
+	            <td>
+	                @Html.DisplayFor(modelItem => item.Address)
+	            </td>
+	            <td>
+	                @Html.DisplayFor(modelItem => item.PhoneNumber)
+	            </td>
+	            <td>
+	                @if (item.RoleNames.Count() > 0)
+	                {
+	                    @Html.DisplayFor(modelItem => item.RoleNames[0])
+	                }
+	                else
+	                {
+	                    <p> No Roles Assigned</p>
+	                }
+	            </td>
+	            <td>
+	                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+	                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+	                @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
+	                @Html.ActionLink("Register to class", "RegisterToClass", new { id = item.Id })
+	            </td>
+	        </tr>
+	    }
+
+	</table>
+</body>
