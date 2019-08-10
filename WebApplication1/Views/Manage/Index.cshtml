@@ -27,7 +27,14 @@
     <dl class="dl-horizontal">
         <dt>Account:</dt>
         <dd>
-            @Html.ActionLink("Edit your account", "Edit", new { Controller = "Users", Action = "Edit",  id = Model.UserId })
+            @Html.ActionLink("Edit your account", "Edit", new { Controller = "Users", Action = "Edit", id = Model.UserId })
+
+        </dd>
+    </dl>
+    <dl class="dl-horizontal">
+        <dt>Classes:</dt>
+        <dd>
+            @Html.ActionLink("Show My Classes", "MyClasses", new { Controller = "Classes", Action = "MyClasses"})
 
         </dd>
     </dl>

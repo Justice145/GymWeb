@@ -327,6 +327,7 @@
     <Content Include="Views\Classes\Index.cshtml" />
     <Content Include="Views\Classes\Search.cshtml" />
     <Content Include="Views\Branches\Search.cshtml" />
+    <Content Include="Views\Classes\MyClasses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
