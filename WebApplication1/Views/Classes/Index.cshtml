@@ -15,7 +15,7 @@
 else
 {
     <p>
-        @Ajax.ActionLink("Register To Class", "RegisterToClass", "Users", new { id = ViewBag.UserID, registerOrCancel = "register" }, new AjaxOptions { HttpMethod = "POST" })
+        @Ajax.ActionLink("Register To Class", "RegisterToClass", "Users", new { id = ViewBag.UserID}, new AjaxOptions { HttpMethod = "GET" })
     </p>
 }
 

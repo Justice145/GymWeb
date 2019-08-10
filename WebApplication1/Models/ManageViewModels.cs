@@ -14,6 +14,8 @@ namespace WebApplication1.Models
         public bool BrowserRemembered { get; set; }
 
         public string Role { get; set; }
+
+        public string UserId { get; set; }
     }
 
     public class SkillsViewModel
