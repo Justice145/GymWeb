@@ -9,5 +9,7 @@ namespace WebApplication1.Models
     {
         public List<Branch> Branches { get; set; }   
         public List<String> ClassNames { get; set;}
+
+        public List<ApplicationUser> Trainers { get; set; }
     }
 }

@@ -37,6 +37,15 @@
             }
         </div>
     </div>
+    <h4 class="col-md-10"> Trainers </h4>
+    <div id="trainersdiv">
+        <div class="col-md-10">
+            @foreach (var item in Model.Trainers)
+            {
+                <input type="checkbox" name="@Html.DisplayFor(modelItem => item.Name)" value="@Html.DisplayFor(modelItem => item.Id)"> @Html.DisplayFor(modelItem => item.Name)
+            }
+        </div>
+    </div>
     <div class="col-md-10"> <br /> </div>
     <div class="col-md-10">
         <a href="#" id="mybutton" class="btn btn-default">Search </a>
@@ -66,12 +75,16 @@
         $('#classdiv input:checked').each(function() {
             classes.push(this.name);
         });
+        var trainers = [];
+        $('#trainersdiv input:checked').each(function() {
+            trainers.push(this.value);
+        });
         // now names contains all of the names of checked checkboxes
         // do something with it for excamle post with ajax
         $.ajax({
             url: '@Url.Action("Search", "Classes")',
             type: 'POST',
-            data: { __RequestVerificationToken: token, branchIds: branches, classNames: classes },
+            data: { __RequestVerificationToken: token, branchIds: branches, classNames: classes, trainersId: trainers },
             success: function (response) {
                 if (response.result == 'Redirect')
                     window.location = response.url;
