@@ -22,7 +22,8 @@ namespace WebApplication1.Controllers
         {
             if (!System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", new RouteValueDictionary(
+                                                        new { controller = "Home" }));
             }
 
             List<ApplicationUser> users;
@@ -356,7 +357,8 @@ namespace WebApplication1.Controllers
                                                         new { controller = "Users", action = "Main", id = id }));
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", new RouteValueDictionary(
+                                                                    new { controller = "Classes", action = "Main", id = classId }));
         }
     }
 }
