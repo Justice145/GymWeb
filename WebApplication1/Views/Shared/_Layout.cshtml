@@ -98,9 +98,12 @@
                                     <li><a href="about.html" class="drop-text">What We do</a></li>
                                     <li><a href="about.html" class="drop-text">Testimonials</a></li>
                                     <li>@Html.ActionLink("Branches", "Index", "Branches")</li>
-                                    <li>@Html.ActionLink("Users", "Index", "Users")</li>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <li>@Html.ActionLink("Users", "Index", "Users")</li>
+                                    }
                                     <li>@Html.ActionLink("Classes", "Index", "Classes")</li>
-                                </ul>
+                                    </ul>
                             </li>
                             <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                         </ul>
