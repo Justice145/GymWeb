@@ -9,13 +9,40 @@
     @Styles.Render("~/Content/font-awesome.min.css")
 </head>
 <body>
-
+    <!--
+      <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("SuperFit", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Branches", "Index", "Branches")</li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Users", "Index", "Users")</li>
+                    }
+                    <li>@Html.ActionLink("Classes", "Index", "Classes")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    -->
     <header>
         <div class="container-fluid">
             <div class="header d-md-flex justify-content-between align-items-center py-3 px-xl-5 px-lg-3 px-2">
                 <!-- logo -->
                 <div id="logo">
-                    <h1><a class="" href="home/index">SuperFit</a></h1>
+                    <h1><a class="" href="index.html">SuperFit</a></h1>
                 </div>
                 <!-- //logo -->
                 <!-- nav -->
@@ -24,7 +51,15 @@
                         <label for="drop" class="toggle">Menu</label>
                         <input type="checkbox" id="drop" />
                         <ul class="menu">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            @if (!User.Identity.IsAuthenticated)
+                            {
+                                <li>@Html.ActionLink("Register", "Register", "Account")</li>
+                                <li>@Html.ActionLink("Login", "Login", "Account")</li>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("My Account", "Index", "Manage")</li>
+                            }
                             <li class="mx-lg-4 mx-md-3 my-md-0 my-2">@Html.ActionLink("About", "About", "Home")</li>
                             <li><a href="gallery.html">Gallery</a></li>
                             <li class="mx-lg-4 mx-md-3 my-md-0 my-2">
