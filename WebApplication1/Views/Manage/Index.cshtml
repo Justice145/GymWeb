@@ -3,69 +3,71 @@
     ViewBag.Title = "Manage";
 }
 
-<h2>@ViewBag.Title.</h2>
-<h2>Hello, @Model.Role</h2>
-<p class="text-success">@ViewBag.StatusMessage</p>
+<body>
+    <h2>@ViewBag.Title.</h2>
+    <h2>Hello, @Model.Role</h2>
+    <p class="text-success">@ViewBag.StatusMessage</p>
 
 
-<div>
-    <h4>Change your account settings</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>Password:</dt>
-        <dd>
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Change your password", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Create", "SetPassword")
-            }
-        </dd>
-    </dl>
-    <dl class="dl-horizontal">
-        <dt>Account:</dt>
-        <dd>
-            @Html.ActionLink("Edit your account", "Edit", new { Controller = "Users", Action = "Edit", id = Model.UserId })
-
-        </dd>
-    </dl>
-    <dl class="dl-horizontal">
-        <dt>Classes:</dt>
-        <dd>
-            @Html.ActionLink("Show My Classes", "Details", new { Controller = "Users", Action = "Details", id = Model.UserId})
-
-        </dd>
-    </dl>
-    @if (Model.Role.Equals("Trainee"))
-    {
-        @Html.ActionLink("See your skills", "Skills")
-
-<div>
-    <h2>Classes that you might like</h2>
-    @if (Model.SuggestedClasses.Count() > 0)
-    {
-        <p>
-            According to other users who liked:
-        </p>
-        foreach (var modelItem in Model.SuggestedClasses)
-        {
+    <div>
+        <h4>Change your account settings</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>Password:</dt>
             <dd>
-                @using (Html.BeginForm("Search", "Classes"))
+                @if (Model.HasPassword)
                 {
-                    @Html.AntiForgeryToken()
-                    @Html.Hidden("specificClass", modelItem)
-                    <button type="submit" class="btn btn-default">Register to @modelItem classes</button>
+                    @Html.ActionLink("Change your password", "ChangePassword")
+                }
+                else
+                {
+                    @Html.ActionLink("Create", "SetPassword")
                 }
             </dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>Account:</dt>
+            <dd>
+                @Html.ActionLink("Edit your account", "Edit", new { Controller = "Users", Action = "Edit", id = Model.UserId })
+
+            </dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>Classes:</dt>
+            <dd>
+                @Html.ActionLink("Show My Classes", "Details", new { Controller = "Users", Action = "Details", id = Model.UserId })
+
+            </dd>
+        </dl>
+        @if (Model.Role.Equals("Trainee"))
+        {
+            @Html.ActionLink("See your skills", "Skills")
+
+            <div>
+                <h2>Classes that you might like</h2>
+                @if (Model.SuggestedClasses.Count() > 0)
+                {
+                    <p>
+                        According to other users who liked:
+                    </p>
+                    foreach (var modelItem in Model.SuggestedClasses)
+                    {
+                        <dd>
+                            @using (Html.BeginForm("Search", "Classes"))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("specificClass", modelItem)
+                                <button type="submit" class="btn btn-default">Register to @modelItem classes</button>
+                            }
+                        </dd>
+                    }
+                }
+                else
+                {
+                    <p>
+                        You still didn't register to enough classes to get recommendations. Sorry!
+                    </p>
+                }
+            </div>
         }
-    }
-    else
-    {
-        <p>
-            You still didn't register to enough classes to get recommendations. Sorry!
-        </p>
-    }
-</div>
-    }
+</body>
