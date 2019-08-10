@@ -105,15 +105,29 @@ namespace WebApplication1.Controllers
             }
             if (!System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR))
             {
+                ViewBag.Role = RoleNames.ROLE_TRAINEE;
                 if (!(User.Identity.GetUserId().Equals(id)))
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
             }
+            else
+            {
+                ViewBag.Role = RoleNames.ROLE_ADMINISTRATOR;
+            }
             ApplicationUser user = db.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
+            }
+
+       
+
+            if (System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_TRAINER))
+            {
+                var allClasses = db.Classes.Include(a => a.Branch).Include(a => a.Trainer);
+                user.Classes = allClasses.Where(a => a.TrainerID == id).ToList();
+                ViewBag.Role = RoleNames.ROLE_TRAINER;
             }
             return View(user);
         }
