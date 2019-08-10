@@ -82,13 +82,7 @@ namespace WebApplication1.Controllers
             {
                 GetSuggestedClasses(ref suggestedClasses);
             }
-
-            foreach (var cls in suggestedClasses)
-            {
-                System.Diagnostics.Debug.WriteLine(cls);
-            }
-            
-
+           
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),

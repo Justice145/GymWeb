@@ -355,6 +355,7 @@ namespace WebApplication1.Controllers
             }
 
             db.Entry(userToRegister).State = EntityState.Modified;
+            db.Entry(requestedClass).State = EntityState.Modified;
             db.SaveChanges();
 
             if (returnToDetails)
