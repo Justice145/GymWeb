@@ -135,7 +135,7 @@ namespace WebApplication1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Class @class = db.Classes.Find(id);
+            Class @class = db.Classes.Where(x => x.Id == id).Include(x => x.Trainees).ToList().FirstOrDefault();
             if (@class == null)
             {
                 return HttpNotFound();

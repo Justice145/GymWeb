@@ -40,6 +40,15 @@ namespace WebApplication1.Models
         public System.Data.Entity.DbSet<WebApplication1.Models.Branch> Branches { get; set; }
 
         public System.Data.Entity.DbSet<WebApplication1.Models.Class> Classes { get; set; }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany<Class>(c => c.Classes).WithMany(i => i.Trainees)
+                .Map(t => t.MapLeftKey("TraineeID")
+                    .MapRightKey("ClassID")
+                    .ToTable("TraineeClass"));
+        } 
     }
 
     public class RoleNames
