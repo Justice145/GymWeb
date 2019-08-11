@@ -27,3 +27,7 @@ li.login {
     background-color: #efefef;
     text-align: center;
 }
+
+.video-style {
+    border-radius: 10px;
+}
