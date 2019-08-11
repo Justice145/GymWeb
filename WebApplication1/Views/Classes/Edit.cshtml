@@ -10,7 +10,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Class</h4>
         <hr />
@@ -28,7 +28,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Time, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @class = "form-control", @id = "datetimepicker", @onBlur = "changed(this)" } })
                 @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -63,4 +63,14 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <link rel="stylesheet" type="text/css" href="/datetimepicker/jquery.datetimepicker.css" />
+    <script src="/datetimepicker/jquery.js"></script>
+    <script src="/datetimepicker/build/jquery.datetimepicker.full.min.js"></script>
+    <script>
+        jQuery('#datetimepicker').datetimepicker({
+            minTime: '06:00',
+            maxTime: '23:00',
+            disabledWeekDays: []
+        });
+    </script>
 }
