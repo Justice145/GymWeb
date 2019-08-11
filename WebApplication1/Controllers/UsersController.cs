@@ -52,7 +52,11 @@ namespace WebApplication1.Controllers
                                           join role in db.Roles on userRole.RoleId equals role.Id
                                           select role.Name).ToList();
 
-                usersWithRoles.Add(userWithRole);
+                // Don't show admin user
+                if (userWithRole.RoleNames[0] != RoleNames.ROLE_ADMINISTRATOR)
+                {
+                    usersWithRoles.Add(userWithRole);
+                }
             }
 
             return View(usersWithRoles);
@@ -271,6 +275,30 @@ namespace WebApplication1.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ApplicationUser user = db.Users.Find(id);
+
+            // Find reqiured user role
+            var usrRole = (from userRole in user.Roles
+                                                     join role in db.Roles on userRole.RoleId equals role.Id
+                                                     select role.Name).ToList()[0];
+            if (usrRole == RoleNames.ROLE_TRAINEE)
+            {
+                var classes = db.Classes.ToList();
+                foreach (var curClass in classes)
+                {
+                    curClass.Trainees.Remove(user);
+                }
+            }
+            else
+            {
+                var classes = db.Classes.ToList();
+                foreach (var curClass in classes)
+                {
+                    if (curClass.TrainerID == id)
+                    {
+                        db.Classes.Remove(curClass);
+                    }
+                }
+            }
             db.Users.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index");
