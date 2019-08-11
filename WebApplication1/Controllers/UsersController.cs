@@ -52,7 +52,11 @@ namespace WebApplication1.Controllers
                                           join role in db.Roles on userRole.RoleId equals role.Id
                                           select role.Name).ToList();
 
-                usersWithRoles.Add(userWithRole);
+                // Don't show admin user
+                if (userWithRole.RoleNames[0] != RoleNames.ROLE_ADMINISTRATOR)
+                {
+                    usersWithRoles.Add(userWithRole);
+                }
             }
 
             return View(usersWithRoles);
