@@ -16,6 +16,7 @@ namespace WebApplication1.Models
         public string Role { get; set; }
         public string UserId { get; set; }
         public List<String> SuggestedClasses {get;set;}
+        public String MostLiked { get; set; }
     }
 
     public class SkillsViewModel

@@ -77,10 +77,10 @@ namespace WebApplication1.Controllers
             }
 
             List<String> suggestedClasses = new List<String>();
-
+            String mostLiked = null;
             if (roleName.Equals(RoleNames.ROLE_TRAINEE))
             {
-                GetSuggestedClasses(ref suggestedClasses);
+                mostLiked = GetSuggestedClasses(ref suggestedClasses);
             }
            
             var model = new IndexViewModel
@@ -92,12 +92,13 @@ namespace WebApplication1.Controllers
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
                 Role = roleName,
                 UserId = userId,
-                SuggestedClasses = suggestedClasses
+                SuggestedClasses = suggestedClasses,
+                MostLiked = mostLiked
             };
             return View(model);
         }
 
-        private void GetSuggestedClasses(ref List<String> suggestedClasses)
+        private String GetSuggestedClasses(ref List<String> suggestedClasses)
         {
             var userId = User.Identity.GetUserId();
             var user = db.Users.Find(userId);
@@ -106,7 +107,7 @@ namespace WebApplication1.Controllers
             if (user.Classes.Count() == 0)
             {
                 AppendMostLikedClasses(ref suggestedClasses, 3);
-                return;
+                return null;
             }
 
             var mostLikedClass = (from cls in user.Classes
@@ -133,6 +134,8 @@ namespace WebApplication1.Controllers
             {
                 suggestedClasses.Add(suggestedClass);
             }
+
+            return mostLikedClass;
         }
 
         private void AppendMostLikedClasses(ref List<String> suggestedClasses, int appendNumRequested)
