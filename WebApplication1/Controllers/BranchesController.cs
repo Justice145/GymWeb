@@ -125,7 +125,7 @@ namespace WebApplication1
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Address,PhoneNumber,WeekDayOpen,WeekDayClose,FridayOpen,FridayClose,SaturdayOpen,SaturdayClose")] Branch branch)
+        public ActionResult Edit([Bind(Include = "Id,Address,PhoneNumber,WeekDayOpen,WeekDayClose,FridayOpen,FridayClose,SaturdayOpen,SaturdayClose,Lat,Lng")] Branch branch)
         {
             if (!System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR))
             {

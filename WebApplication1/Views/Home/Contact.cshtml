@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model IEnumerable<WebApplication1.Models.Branch>
+<!DOCTYPE html>
 <html lang="zxx">
 
 <head>
@@ -46,6 +47,18 @@
         });
 
         function initialize() {
+             // Multiple Markers
+            var markers = [
+                ['London Eye, London', 51.503454, -0.119562],
+                ['London Eye, London', 51.501544, -0.122149],
+                ['Palace of Westminster, London', 51.499633, -0.124755]
+            ];
+
+            @foreach (var item in Model)
+            {
+                @:markers.push(["@item.Address", "@item.Lat", "@item.Lng"])
+            }
+
             var map;
             var bounds = new google.maps.LatLngBounds();
             var mapOptions = {
@@ -56,12 +69,7 @@
             map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
             map.setTilt(45);
 
-            // Multiple Markers
-            var markers = [
-                ['London Eye, London', 51.503454, -0.119562],
-                ['London Eye, London', 51.501544, -0.122149],
-                ['Palace of Westminster, London', 51.499633, -0.124755]
-            ];
+           
 
             // Info Window Content
             var infoWindowContent = [
@@ -199,7 +207,7 @@
             <div id="map_canvas" class="mapping" style="border:0" allowfullscreen=""></div>
         </div>*@
     </div> --->
-    <div id="map_wrapper" style="height: 400px;"  class="map p-2">
+    <div id="map_wrapper" style="height: 400px;" class="map p-2">
         <div id="map_canvas" class="mapping" style="width: 100%; height: 100%;"></div>
     </div>
     <!-- //map -->
@@ -317,4 +325,4 @@
     <!-- //move top icon -->
 
 </body>
-</html>    
+</html>

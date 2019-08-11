@@ -20,11 +20,10 @@
         <script type="text/javascript">
       $(function() {
                   var availableTags = [];
-                  var auto = document.getElementById("autocomplete").value;
                   $.ajax({
                     type: "GET",
                     url: '/Users/UsersList',
-                    data: {toComplete : auto},
+                    data: {},
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
@@ -37,8 +36,6 @@
                       }
 
                   });
-
-               
 
                 $("#autocomplete").autocomplete({
                     source: availableTags

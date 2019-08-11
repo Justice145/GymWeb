@@ -59,9 +59,9 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Users/UsersList
-        public JsonResult UsersList(String toComplete)
+        public JsonResult UsersList()
         {
-            List<String> names = db.Users.Where(s => s.Name.Contains(toComplete)).Select(x => x.Name).ToList();
+            List<String> names = db.Users.Select(x => x.Name).ToList();
 
             //return users;
             return Json(names, JsonRequestBehavior.AllowGet);
