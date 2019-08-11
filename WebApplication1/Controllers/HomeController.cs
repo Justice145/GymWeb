@@ -50,8 +50,7 @@ namespace WebApplication1.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Contact Us";
-
-            return View();
+            return View(db.Branches.ToList());
         }
 
     }

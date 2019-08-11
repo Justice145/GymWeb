@@ -62,6 +62,17 @@ namespace WebApplication1.Controllers
             return View(usersWithRoles);
         }
 
+        // GET: Users/UsersList
+        public JsonResult UsersList()
+        {
+            List<String> names = db.Users.Select(x => x.Name).ToList();
+
+            //return users;
+            return Json(names, JsonRequestBehavior.AllowGet);
+        }
+
+
+
         //POST : Users
         [HttpPost]
         [ValidateAntiForgeryToken]
