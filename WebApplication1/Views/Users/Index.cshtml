@@ -21,16 +21,30 @@
       $(function() {
                   var availableTags = [];
 
+                  $.ajax({
+                    type: "GET",
+                    url: 'Users/UsersList',
+                    data: {},
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
 
-                    @foreach (var item in Model)
-                    {
-                        @:availableTags.push("@item.Name");
+                        // Looping over emloyee list and display it
+                        $.each(response, function (index, emp) {
+                            availableTags.push(emp.Name);
+                        });
                     }
-    $( "#autocomplete" ).autocomplete({
-      source: availableTags
-    });
+                });
+
+                $("#autocomplete").autocomplete({
+                    source: availableTags
+                });
+
+
   });
         </script>
+
+
 
     </head>
 <body>

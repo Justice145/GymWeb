@@ -58,6 +58,26 @@ namespace WebApplication1.Controllers
             return View(usersWithRoles);
         }
 
+        // GET: Users/UsersList
+        public JsonResult UsersList()
+        {
+            List<ApplicationUser> users;
+            if (TempData["search"] == null)
+            {
+                users = db.Users.ToList();
+            }
+            else
+            {
+                users = TempData["search"] as List<ApplicationUser>;
+                TempData["search"] = null;
+            }
+
+            //return users;
+            return Json(users, JsonRequestBehavior.AllowGet);
+        }
+
+
+
         //POST : Users
         [HttpPost]
         [ValidateAntiForgeryToken]
