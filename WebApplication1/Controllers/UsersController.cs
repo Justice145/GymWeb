@@ -59,21 +59,12 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Users/UsersList
-        public JsonResult UsersList()
+        public JsonResult UsersList(String toComplete)
         {
-            List<ApplicationUser> users;
-            if (TempData["search"] == null)
-            {
-                users = db.Users.ToList();
-            }
-            else
-            {
-                users = TempData["search"] as List<ApplicationUser>;
-                TempData["search"] = null;
-            }
+            List<String> names = db.Users.Where(s => s.Name.Contains(toComplete)).Select(x => x.Name).ToList();
 
             //return users;
-            return Json(users, JsonRequestBehavior.AllowGet);
+            return Json(names, JsonRequestBehavior.AllowGet);
         }
 
 

@@ -20,21 +20,25 @@
         <script type="text/javascript">
       $(function() {
                   var availableTags = [];
-
+                  var auto = document.getElementById("autocomplete").value;
                   $.ajax({
                     type: "GET",
-                    url: 'Users/UsersList',
-                    data: {},
+                    url: '/Users/UsersList',
+                    data: {toComplete : auto},
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
 
                         // Looping over emloyee list and display it
                         $.each(response, function (index, emp) {
-                            availableTags.push(emp.Name);
+                            availableTags.push(emp);
                         });
-                    }
-                });
+
+                      }
+
+                  });
+
+               
 
                 $("#autocomplete").autocomplete({
                     source: availableTags
@@ -56,7 +60,6 @@
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        @*Name: <input type="text" name="userSearch" id="autocomplete" placeholder="Type countries here" /><br /><br />*@
         <div class="ui-widget">
             <label for="tags">Name</label>
             <input type="text" name="userSearch" id="autocomplete" placeholder="Type name here">
