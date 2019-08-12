@@ -20,6 +20,8 @@ namespace WebApplication1.Migrations
                         FridayClose = c.Time(nullable: false, precision: 7),
                         SaturdayOpen = c.Time(nullable: false, precision: 7),
                         SaturdayClose = c.Time(nullable: false, precision: 7),
+                        Lat = c.Single(nullable: false),
+                        Lng = c.Single(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -32,15 +34,12 @@ namespace WebApplication1.Migrations
                         Time = c.DateTime(nullable: false),
                         TrainerID = c.String(maxLength: 128),
                         BranchId = c.Int(nullable: false),
-                        ApplicationUser_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Branches", t => t.BranchId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.TrainerID)
                 .Index(t => t.TrainerID)
-                .Index(t => t.BranchId)
-                .Index(t => t.ApplicationUser_Id);
+                .Index(t => t.BranchId);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -60,12 +59,9 @@ namespace WebApplication1.Migrations
                         LockoutEnabled = c.Boolean(nullable: false),
                         AccessFailedCount = c.Int(nullable: false),
                         UserName = c.String(nullable: false, maxLength: 256),
-                        Class_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Classes", t => t.Class_Id)
-                .Index(t => t.UserName, unique: true, name: "UserNameIndex")
-                .Index(t => t.Class_Id);
+                .Index(t => t.UserName, unique: true, name: "UserNameIndex");
             
             CreateTable(
                 "dbo.AspNetUserClaims",
@@ -115,28 +111,42 @@ namespace WebApplication1.Migrations
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
             
+            CreateTable(
+                "dbo.TraineeClass",
+                c => new
+                    {
+                        TraineeID = c.String(nullable: false, maxLength: 128),
+                        ClassID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.TraineeID, t.ClassID })
+                .ForeignKey("dbo.AspNetUsers", t => t.TraineeID, cascadeDelete: true)
+                .ForeignKey("dbo.Classes", t => t.ClassID, cascadeDelete: true)
+                .Index(t => t.TraineeID)
+                .Index(t => t.ClassID);
+            
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.Classes", "TrainerID", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUsers", "Class_Id", "dbo.Classes");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Classes", "ApplicationUser_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.TraineeClass", "ClassID", "dbo.Classes");
+            DropForeignKey("dbo.TraineeClass", "TraineeID", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Classes", "BranchId", "dbo.Branches");
+            DropIndex("dbo.TraineeClass", new[] { "ClassID" });
+            DropIndex("dbo.TraineeClass", new[] { "TraineeID" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
-            DropIndex("dbo.AspNetUsers", new[] { "Class_Id" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.Classes", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.Classes", new[] { "BranchId" });
             DropIndex("dbo.Classes", new[] { "TrainerID" });
+            DropTable("dbo.TraineeClass");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
