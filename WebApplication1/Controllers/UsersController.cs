@@ -121,12 +121,16 @@ namespace WebApplication1.Controllers
                 return HttpNotFound();
             }
 
-       
 
-            if (System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_TRAINER))
+            UserManager<ApplicationUser> mngr = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+
+            if (System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_TRAINER) || mngr.IsInRole(id, RoleNames.ROLE_TRAINER))
             {
                 var allClasses = db.Classes.Include(a => a.Branch).Include(a => a.Trainer);
                 user.Classes = allClasses.Where(a => a.TrainerID == id).ToList();
+            }
+            if (System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_TRAINER))
+            {
                 ViewBag.Role = RoleNames.ROLE_TRAINER;
             }
             return View(user);
@@ -217,24 +221,27 @@ namespace WebApplication1.Controllers
 
             if (!System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR))
             {
-                if (!(User.Identity.GetUserId().Equals(user.Id)))
+                if (!(User.Identity.GetUserId().Equals(user.Id)) || (Role != null))
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
             }
 
-            bool validRole = false;
-            foreach (var role in allRoles)
+            if (Role != null)
             {
-                if (Role.Equals(role))
+                bool validRole = false;
+                foreach (var role in allRoles)
                 {
-                    validRole = true;
+                    if (Role.Equals(role))
+                    {
+                        validRole = true;
+                    }
                 }
-            }
 
-            if (!validRole)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (!validRole)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
             }
 
             if (ModelState.IsValid)
@@ -242,24 +249,28 @@ namespace WebApplication1.Controllers
                 ApplicationUser usr = db.Users.Find(user.Id);
                 usr.UserName = user.Email;
                 usr.Email = user.Email;
+                usr.Name = user.Name;
                 usr.Address = user.Address;
                 usr.PhoneNumber = user.PhoneNumber;
-         
-                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
-                IList<String> currRoles = manager.GetRoles(usr.Id);
-                
-                foreach (var roleName in currRoles)
+
+                if (Role != null)
                 {
-                    foreach (var roleToRemove in allRoles)
+                    var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                    IList<String> currRoles = manager.GetRoles(usr.Id);
+
+                    foreach (var roleName in currRoles)
                     {
-                        if (roleName.Equals(roleToRemove))
+                        foreach (var roleToRemove in allRoles)
                         {
-                            manager.RemoveFromRole(usr.Id, roleToRemove);
+                            if (roleName.Equals(roleToRemove))
+                            {
+                                manager.RemoveFromRole(usr.Id, roleToRemove);
+                            }
                         }
                     }
-                }
 
-                manager.AddToRole(usr.Id, Role);
+                    manager.AddToRole(usr.Id, Role);
+                }
 
                 db.Entry(usr).State = EntityState.Modified;
                 db.SaveChanges();
