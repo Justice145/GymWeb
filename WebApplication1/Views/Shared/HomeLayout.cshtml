@@ -1,5 +1,8 @@
 ﻿<!DOCTYPE html>
 <html>
+
+
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -67,8 +70,7 @@
         @RenderBody()
         <a href="#home" class="move-top text-center"></a>
         <footer>
-
-            <div class="cpy-right text-center py-3 fixed-bottom">
+            <div class="cpy-right text-center py-3 navbar-fixed-bottom">
                 <p>
                     &copy; @DateTime.Now.Year - SuperFit. All rights reserved
                 </p>
@@ -77,7 +79,7 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/datetime")
+    @** @@Scripts.Render("~/bundles/datetime")*@
     @RenderSection("scripts", required: false)
 </body>
 </html>
