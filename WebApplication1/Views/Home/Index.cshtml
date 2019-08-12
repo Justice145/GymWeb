@@ -35,6 +35,25 @@
               rel="stylesheet">
         <!-- //Web-Fonts -->
         <link rel="stylesheet" href="~/Content/ovveride.css">
+
+
+        <script type="text/javascript">
+            window.onload = function () {
+                var canvas = document.getElementById('image');
+                var ctx = canvas.getContext('2d');
+
+                var img = new Image();
+
+                img.onload = function () {
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+                }
+
+                img.src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfbY8wW-igh4Dj0WTelzsWFIln97OO4NmziFEY6r0ztvro67GOvA';
+            };
+
+        </script>
     </head>
 
     <body>
@@ -139,22 +158,30 @@
                     We offer all kind of classes, in branches that are spread from south to north.
                     Join us and start your SuperFit journey today!
                 </p>
-                <div class="img-fluid">
-                    <div class="col-md-4">
-                        <video width="600" height="480" controls class="video-style">
+                <div class="d-flex justify-content-center">
+                    <video width="600" height="480" controls style="border-radius: 10px">
                             <source src="../../videos/trailer_vid.mp4" type="video/mp4">
                             Your browser does not support the video tag.
-                        </video>
-                    </div>
+                    </video>
                 </div>
             </div>
         </div>
         <!-- //about -->
 
-		<h2> Classes count per branch</h2>
-		<div class="col-md-4">
-		    <div id="my_dataviz"></div>
-		</div>
+        <section style="flex-wrap: nowrap; text-align: center">
+            <h2> Classes Count per Branch</h2>
+            <div class="d-flex justify-content-lg-around">
+                <div class="col-md-3">
+                    <div id="my_dataviz"></div>
+                </div>
+                <div class="col-md-3" style="max-width: 50%; height: auto;">
+                    <canvas id="image"></canvas>
+                    <aside>
+                        Illustration.
+                    </aside>
+                </div>
+            </div>
+        </section>
 
 		
 
