@@ -43,7 +43,10 @@
                                 <input type="checkbox" id="drop-2" />
                                 <ul>
                                     <li>@Html.ActionLink("Branches", "Index", "Branches")</li>
-                                    <li>@Html.ActionLink("Users", "Index", "Users")</li>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <li>@Html.ActionLink("Users", "Index", "Users")</li>
+                                    }
                                     <li>@Html.ActionLink("Classes", "Index", "Classes")</li>
                                 </ul>
                             </li>
