@@ -191,11 +191,13 @@ namespace WebApplication1.Controllers
 
             var RoleList = new List<String>();
 
-            RoleList.Add(RoleNames.ROLE_ADMINISTRATOR);
-
             RoleList.Add(RoleNames.ROLE_TRAINEE);
 
             RoleList.Add(RoleNames.ROLE_TRAINER);
+
+            RoleList.Add(RoleNames.ROLE_ADMINISTRATOR);
+
+
 
             ViewBag.Roles = RoleList;
             return View(user);

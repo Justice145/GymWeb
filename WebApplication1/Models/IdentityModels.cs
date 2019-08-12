@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -19,8 +20,9 @@ namespace WebApplication1.Models
             return userIdentity;
         }
 
+        [DataType(DataType.Text)]
         public string Address { get; set; }
-
+        [DataType(DataType.Text)]
         public string Name { get; set; }
         public virtual ICollection<Class> Classes { get; set; }
     }

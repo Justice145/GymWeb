@@ -25,15 +25,31 @@ namespace WebApplication1.Controllers
                 ViewBag.UserID = user.GetUserId();
 
                 ViewBag.displayMenu = "No";
+                ViewBag.enableCreate = "No";
+                ViewBag.isTrainer = "No";
+                ViewBag.TrainerId = null;
 
                 if (isAdminUser())
                 {
                     ViewBag.displayMenu = "Yes";
+                    ViewBag.enableCreate = "Yes";
+                    ViewBag.isTrainer = "No";
+                    ViewBag.TrainerId = null;
+                }
+
+                if (isTrainerUser())
+                {
+                    ViewBag.enableCreate = "Yes";
+                    ViewBag.isTrainer = "Yes";
                 }
             }
             else
             {
                 ViewBag.Name = "Not Logged IN";
+                ViewBag.displayMenu = "No";
+                ViewBag.enableCreate = "No";
+                ViewBag.isTrainer = "No";
+                ViewBag.UserID = null;
             }
 
 
@@ -148,8 +164,8 @@ namespace WebApplication1.Controllers
         {
             if (System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_TRAINER))
             {
-               var specific = db.Users.Find(User.Identity.GetUserId());
-               ViewBag.BranchId = specific;
+               String trainerId = User.Identity.GetUserId();
+               ViewBag.TrainerID = new SelectList(db.Users.Where(x => x.Id.Equals(trainerId)), "Id", "Name");
             }
             else if (System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR))
             {
@@ -207,8 +223,30 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
+
+            if (System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_TRAINER))
+            {
+                if (!@class.TrainerID.Equals(User.Identity.GetUserId()))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+            }
+            else if (!System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Address", @class.BranchId);
-            ViewBag.TrainerID = new SelectList(db.Users, "Id", "UserName", @class.TrainerID);
+
+            if (isAdminUser())
+            {
+                ViewBag.TrainerID = new SelectList(db.Users, "Id", "UserName", @class.TrainerID);
+            }
+            else if (isTrainerUser())
+            {
+                ViewBag.TrainerID = new SelectList(db.Users.Where(x => x.Id.Equals(@class.TrainerID)), "Id", "UserName", @class.TrainerID);
+            }
+
             return View(@class);
         }
 
@@ -219,6 +257,18 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,Time,TrainerID,BranchId")] Class @class)
         {
+            if (System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_TRAINER))
+            {
+                if (!@class.TrainerID.Equals(User.Identity.GetUserId()))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+            }
+            else if (!System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(@class).State = EntityState.Modified;
@@ -242,6 +292,17 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
+            if (System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_TRAINER))
+            {
+                if (!@class.TrainerID.Equals(User.Identity.GetUserId()))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+            }
+            else if (!System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             return View(@class);
         }
 
@@ -251,6 +312,17 @@ namespace WebApplication1.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Class @class = db.Classes.Find(id);
+            if (System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_TRAINER))
+            {
+                if (!@class.TrainerID.Equals(User.Identity.GetUserId()))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+            }
+            else if (!System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             db.Classes.Remove(@class);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -268,6 +340,11 @@ namespace WebApplication1.Controllers
         private Boolean isAdminUser()
         {
             return System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_ADMINISTRATOR);
+        }
+
+        private Boolean isTrainerUser()
+        {
+            return System.Web.HttpContext.Current.User.IsInRole(RoleNames.ROLE_TRAINER);
         }
     }
 }

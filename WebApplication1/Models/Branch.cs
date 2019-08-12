@@ -10,7 +10,9 @@ namespace WebApplication1.Models
     {
         [Key]
         public int Id { get; set; }
+        [DataType(DataType.Text), Required]
         public string Address { get; set; }
+        [DataType(DataType.PhoneNumber), Required]
         public string PhoneNumber { get; set; }
 
         public virtual ICollection<Class> Classes { get; set; }

@@ -11,10 +11,12 @@ namespace WebApplication1.Models
     {
         [Key]
         public int Id { get; set; }
+
+        [DataType(DataType.Text), Required]
         public string Name { get; set; }
 
         [DataType(DataType.DateTime), Required]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd on hh:mm}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd on hh:mm}", ApplyFormatInEditMode = false)]
         public DateTime Time { get; set; }
         
         public string TrainerID { get; set; }
